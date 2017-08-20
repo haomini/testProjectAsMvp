@@ -7,11 +7,4 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-    <style name="TSnackbarStyle" parent="Widget.Design.Snackbar">
-        <item name="android:background">@null</item>
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingRight">0dp</item>
-    </style>
-
 </resources>

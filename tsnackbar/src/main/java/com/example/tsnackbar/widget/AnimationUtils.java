@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.zhiyicx.justdodagger2.widget;
+package com.example.tsnackbar.widget;
 
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;

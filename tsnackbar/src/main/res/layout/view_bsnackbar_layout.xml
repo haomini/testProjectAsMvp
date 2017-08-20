@@ -13,10 +13,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
 -->
-
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/TSnackbarStyle"
-    class="com.example.zhiyicx.justdodagger2.widget.TSnackbar$SnackbarLayout"
+    class="com.example.tsnackbar.widget.TSnackbar$SnackbarLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="top" />
+    android:layout_gravity="bottom"
+    android:elevation="0dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark" />

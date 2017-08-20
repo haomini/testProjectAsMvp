@@ -1,4 +1,4 @@
-package com.example.zhiyicx.justdodagger2.widget;
+package com.example.tsnackbar.widget;
 
 /*
  * Copyright (C) 2015 The Android Open Source Project

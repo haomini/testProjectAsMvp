@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.tsnackbar.widget.TSnackbar;
 import com.example.zhiyicx.justdodagger2.edittext.DeleteEditText;
 import com.example.zhiyicx.justdodagger2.edittext.EditTextBlankWrapper;
-import com.example.zhiyicx.justdodagger2.widget.TSnackbar;
 import com.jakewharton.rxbinding.view.RxView;
 
 import butterknife.BindView;
@@ -61,7 +61,7 @@ public class MainFragment extends Fragment implements Contract.View {
                             .show();
                 });
 
-        wrapper = new EditTextBlankWrapper<DeleteEditText>(del, "xxx", 3, 7);
+        wrapper = new EditTextBlankWrapper<DeleteEditText>(del, "--", new int[]{0, 2, 6});
     }
 
     @Override

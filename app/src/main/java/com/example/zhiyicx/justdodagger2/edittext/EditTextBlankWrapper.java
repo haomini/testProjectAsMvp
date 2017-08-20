@@ -1,12 +1,14 @@
 package com.example.zhiyicx.justdodagger2.edittext;
 
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import java.lang.reflect.Field;
+
 /**
  * @Describe 提供一个为任意EditText, 在特殊位置添加特殊符号的方法
- * @notify 注意 : 位置0不处理哈.
  * @Author zhouhao
  * @Date 2017/8/18
  * @Contact 605626708@qq.com
@@ -32,10 +34,10 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
      */
     public EditTextBlankWrapper(T editText, CharSequence add, int[] params) {
         this.editText = editText;
-        initListener();
         this.params = params;
         this.add = add;
         this.type = 0;
+        initListener();
     }
 
     /**
@@ -48,11 +50,11 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
      */
     public EditTextBlankWrapper(T editText, CharSequence add, int start, int perLen) {
         this.editText = editText;
-        initListener();
         this.add = add;
         this.start = start;
         this.perLen = perLen;
         this.type = 1;
+        initListener();
     }
 
     private void initListener() {
@@ -73,7 +75,7 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
     public void afterTextChanged(Editable s) {
         String text = s.toString();
         if (needAdd(text)) {
-            s.append(add);
+            s.insert(s.length() - 1, add);
             index++;
         }
         if (needDel(text)) {
@@ -91,12 +93,13 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
     public boolean needAdd(String text) {
         if (type == 0) {
             for (int i = 0; i < params.length; i++) {
-                if (params[i] + index * add.length() == len + 1)
+                if (params[i] + index * add.length() == len)
                     return len < text.length();
             }
             return false;
         } else {
-
+            if ((add.length() + perLen) * index + start == len)
+                return len < text.length();
             return false;
         }
     }
@@ -115,21 +118,37 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
             }
             return false;
         } else {
+            if ((add.length() + perLen) * index - perLen + start == len - 1)
+                return len > text.length();
             return false;
         }
     }
 
     /**
-     * 检查传入的位置是否包含0
+     * 获取设置的最大长度
      *
      * @return
      */
-    public boolean containsZero() {
-        for (int i = 0; i < params.length; i++) {
-            if (params[i] == 0)
-                return true;
+    public int getMaxLength() {
+        int length = 0;
+        try {
+            InputFilter[] inputFilters = editText.getFilters();
+            for (InputFilter filter : inputFilters) {
+                Class<?> c = filter.getClass();
+                if (c.getName().equals("android.text.InputFilter$LengthFilter")) {
+                    Field[] f = c.getDeclaredFields();
+                    for (Field field : f) {
+                        if (field.getName().equals("mMax")) {
+                            field.setAccessible(true);
+                            length = (Integer) field.get(filter);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return false;
+        return length;
     }
 
     /**

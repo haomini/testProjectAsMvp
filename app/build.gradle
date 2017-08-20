@@ -56,7 +56,7 @@ dependencies {
     compile dataDependencies.rxlifecycleComponents
     compile dataDependencies.rxlifecycleNavi
     compile dataDependencies.rxlifecycleKotlin
-    compile support.design
     compile dataDependencies.butterknife
     compile dataDependencies.butterknifeApt
+    compile project(path: ':tsnackbar')
 }

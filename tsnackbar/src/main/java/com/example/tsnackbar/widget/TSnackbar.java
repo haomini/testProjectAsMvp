@@ -1,4 +1,4 @@
-package com.example.zhiyicx.justdodagger2.widget;
+package com.example.tsnackbar.widget;
 
 /*
  * Copyright (C) 2015 The Android Open Source Project
@@ -34,6 +34,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
+import android.support.v4.view.WindowInsetsCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -49,13 +50,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.zhiyicx.justdodagger2.R;
+import com.example.tsnackbar.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import static android.support.annotation.RestrictTo.Scope.GROUP_ID;
-import static com.example.zhiyicx.justdodagger2.widget.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR;
+import static com.example.tsnackbar.widget.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR;
 
 /**
  * Snackbars provide lightweight feedback about an operation. They show a brief message at the
@@ -67,7 +68,7 @@ import static com.example.zhiyicx.justdodagger2.widget.AnimationUtils.FAST_OUT_S
  * off screen.
  * <p>
  * Snackbars can contain an action which is set via
- * {@link #setAction(CharSequence, android.view.View.OnClickListener)}.
+ * {@link #setAction(CharSequence, View.OnClickListener)}.
  * <p>
  * To be notified when a TSnackbar has been shown or dismissed, you can provide a {@link Callback}
  * via {@link #setCallback(Callback)}.</p>
@@ -765,12 +766,15 @@ public final class TSnackbar {
             // Make sure that we fit system windows and have a listener to apply any insets
             ViewCompat.setFitsSystemWindows(this, true);
             ViewCompat.setOnApplyWindowInsetsListener(this,
-                    (v, insets) -> {
-                        // Copy over the bottom inset as padding so that we're displayed above the
-                        // navigation bar
-                        v.setPadding(v.getPaddingLeft(), v.getPaddingTop(),
-                                v.getPaddingRight(), insets.getSystemWindowInsetBottom());
-                        return insets;
+                    new android.support.v4.view.OnApplyWindowInsetsListener() {
+                        @Override
+                        public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                            // Copy over the bottom inset as padding so that we're displayed above the
+                            // navigation bar
+                            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(),
+                                    v.getPaddingRight(), insets.getSystemWindowInsetBottom());
+                            return insets;
+                        }
                     });
         }
 

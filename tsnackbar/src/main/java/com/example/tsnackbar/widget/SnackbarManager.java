@@ -1,4 +1,4 @@
-package com.example.zhiyicx.justdodagger2.widget;
+package com.example.tsnackbar.widget;
 
 /*
  * Copyright (C) 2015 The Android Open Source Project
@@ -19,11 +19,11 @@ package com.example.zhiyicx.justdodagger2.widget;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.design.widget.Snackbar;
 
 import java.lang.ref.WeakReference;
+
 /**
- * Manages {@link Snackbar}s.
+ * Manages {@link TSnackbar}s.
  */
 class SnackbarManager {
 
@@ -64,6 +64,7 @@ class SnackbarManager {
 
     interface Callback {
         void show();
+
         void dismiss(int event);
     }
 
@@ -87,7 +88,7 @@ class SnackbarManager {
             }
 
             if (mCurrentSnackbar != null && cancelSnackbarLocked(mCurrentSnackbar,
-                    Snackbar.Callback.DISMISS_EVENT_CONSECUTIVE)) {
+                    TSnackbar.Callback.DISMISS_EVENT_CONSECUTIVE)) {
                 // If we currently have a Snackbar, try and cancel it and wait in line
                 return;
             } else {
@@ -214,7 +215,7 @@ class SnackbarManager {
     }
 
     private void scheduleTimeoutLocked(SnackbarRecord r) {
-        if (r.duration == Snackbar.LENGTH_INDEFINITE) {
+        if (r.duration == TSnackbar.LENGTH_INDEFINITE) {
             // If we're set to indefinite, we don't want to set a timeout
             return;
         }
@@ -222,7 +223,7 @@ class SnackbarManager {
         int durationMs = LONG_DURATION_MS;
         if (r.duration > 0) {
             durationMs = r.duration;
-        } else if (r.duration == Snackbar.LENGTH_SHORT) {
+        } else if (r.duration == TSnackbar.LENGTH_SHORT) {
             durationMs = SHORT_DURATION_MS;
         }
         mHandler.removeCallbacksAndMessages(r);
@@ -232,7 +233,7 @@ class SnackbarManager {
     void handleTimeout(SnackbarRecord record) {
         synchronized (mLock) {
             if (mCurrentSnackbar == record || mNextSnackbar == record) {
-                cancelSnackbarLocked(record, Snackbar.Callback.DISMISS_EVENT_TIMEOUT);
+                cancelSnackbarLocked(record, TSnackbar.Callback.DISMISS_EVENT_TIMEOUT);
             }
         }
     }
