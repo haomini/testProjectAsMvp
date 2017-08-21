@@ -6,6 +6,8 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Describe 提供一个为任意EditText, 在特殊位置添加特殊符号的方法
@@ -20,7 +22,7 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
     private CharSequence add;           // 待添加字符串
     private int type;                   // 0无序位置, 1有序位置 etc.
 
-    private int[] params;               // 无序位置, 位置0暂不处理
+    private Integer[] params;               // 无序位置, 位置0暂不处理
     private int start, perLen;          // 有序位置, 等差起始位置和差距
 
     private int len;                    // 改变前长度
@@ -32,11 +34,15 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
      * @param add
      * @param params
      */
-    public EditTextBlankWrapper(T editText, CharSequence add, int[] params) {
+    public EditTextBlankWrapper(T editText, CharSequence add, Integer[] params) {
         this.editText = editText;
         this.params = params;
         this.add = add;
         this.type = 0;
+        // 排序去重
+        removeRepetition();
+        //处理以前的maxLength
+        dealMaxLength();
         initListener();
     }
 
@@ -54,6 +60,8 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
         this.start = start;
         this.perLen = perLen;
         this.type = 1;
+        //处理以前的maxLength
+        dealMaxLength();
         initListener();
     }
 
@@ -124,6 +132,18 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
         }
     }
 
+    protected void dealMaxLength() {
+        int length = getMaxLength();
+        if (length != 0) {
+            if (type == 0) {
+                length += params.length * add.length();
+            } else {
+                length += (length - start) / perLen * add.length();
+            }
+            editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(length)});
+        }
+    }
+
     /**
      * 获取设置的最大长度
      *
@@ -167,5 +187,20 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
      */
     public int getAddCount() {
         return index;
+    }
+
+    /**
+     * 排序去重
+     */
+    public void removeRepetition() {
+        Arrays.sort(params);
+        List list = Arrays.asList(params);
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i) == list.get(i - 1)) {
+                list.remove(i);
+                i--;
+            }
+        }
+        params = (Integer[]) list.toArray(new Integer[list.size()]);
     }
 }

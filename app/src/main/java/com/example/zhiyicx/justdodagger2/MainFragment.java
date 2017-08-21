@@ -61,7 +61,7 @@ public class MainFragment extends Fragment implements Contract.View {
                             .show();
                 });
 
-        wrapper = new EditTextBlankWrapper<DeleteEditText>(del, "--", new int[]{0, 2, 6});
+        wrapper = new EditTextBlankWrapper<>(del, "--", 3, 4);
     }
 
     @Override
