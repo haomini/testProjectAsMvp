@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.tsnackbar.widget.TSnackbar;
 import com.example.zhiyicx.justdodagger2.edittext.DeleteEditText;
-import com.example.zhiyicx.justdodagger2.edittext.EditTextBlankWrapper;
+import com.example.zhiyicx.justdodagger2.edittext.EditTextAddWrapper;
 import com.jakewharton.rxbinding.view.RxView;
 
 import butterknife.BindView;
@@ -35,7 +35,7 @@ public class MainFragment extends Fragment implements Contract.View {
     Button show2;
     @BindView(R.id.del)
     DeleteEditText del;
-    private EditTextBlankWrapper<DeleteEditText> wrapper;
+    private EditTextAddWrapper<DeleteEditText> wrapper;
 
     @Nullable
     @Override
@@ -61,7 +61,7 @@ public class MainFragment extends Fragment implements Contract.View {
                             .show();
                 });
 
-        wrapper = new EditTextBlankWrapper<>(del, "--", 3, 4);
+        wrapper = new EditTextAddWrapper<>(del, "--", 3, 4);
     }
 
     @Override

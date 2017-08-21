@@ -11,12 +11,13 @@ import java.util.List;
 
 /**
  * @Describe 提供一个为任意EditText, 在特殊位置添加特殊符号的方法
+ * @notify 稍微包装了一下EditText的maxLength
  * @Author zhouhao
  * @Date 2017/8/18
  * @Contact 605626708@qq.com
  */
 
-public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
+public class EditTextAddWrapper<T extends EditText> implements TextWatcher {
     public T editText;                  // 实际EditText
     private int index;                  // 已经添加字符串的个数
     private CharSequence add;           // 待添加字符串
@@ -34,7 +35,7 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
      * @param add
      * @param params
      */
-    public EditTextBlankWrapper(T editText, CharSequence add, Integer[] params) {
+    public EditTextAddWrapper(T editText, CharSequence add, Integer[] params) {
         this.editText = editText;
         this.params = params;
         this.add = add;
@@ -54,7 +55,7 @@ public class EditTextBlankWrapper<T extends EditText> implements TextWatcher {
      * @param start
      * @param perLen
      */
-    public EditTextBlankWrapper(T editText, CharSequence add, int start, int perLen) {
+    public EditTextAddWrapper(T editText, CharSequence add, int start, int perLen) {
         this.editText = editText;
         this.add = add;
         this.start = start;
