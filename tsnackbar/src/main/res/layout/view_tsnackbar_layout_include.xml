@@ -51,7 +51,7 @@
             <TextView
                 android:id="@+id/snackbar_action"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/toolbarHeight"
+                android:layout_height="@dimen/toolbar_height"
                 android:layout_gravity="center_vertical|end|end"
                 android:gravity="center_vertical"
                 android:paddingEnd="@dimen/margin_large"

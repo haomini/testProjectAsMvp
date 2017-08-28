@@ -19,6 +19,9 @@ package com.example.tsnackbar.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 
+/**
+ * @version update by zhouhao
+ */
 class ThemeUtils {
 
     private static final int[] APPCOMPAT_CHECK_ATTRS = {

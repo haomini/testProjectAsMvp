@@ -2,11 +2,10 @@ package com.example.zhiyicx.justdodagger2;
 
 import android.content.Intent;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.zhiyicx.justdodagger2.base.BaseFragment;
-import com.example.zhiyicx.justdodagger2.edittext.DeleteEditText_2;
-import com.example.zhiyicx.justdodagger2.edittext.EditTextAddWrapper;
+import com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText;
+import com.example.zhiyicx.justdodagger2.widget.edittext.EditTextAddWrapper;
 import com.jakewharton.rxbinding.view.RxView;
 
 import butterknife.BindView;
@@ -26,11 +25,9 @@ public class MainFragment extends BaseFragment<Contract.Presenter> implements Co
     @BindView(R.id.show_2)
     Button show2;
     @BindView(R.id.del)
-    DeleteEditText_2 del;
-    @BindView(R.id.edit)
-    EditText edit;
+    DeleteEditText del;
 
-    private EditTextAddWrapper<DeleteEditText_2> wrapper;
+    private EditTextAddWrapper<DeleteEditText> wrapper;
 
     @Override
     protected void initView() {
@@ -59,6 +56,21 @@ public class MainFragment extends BaseFragment<Contract.Presenter> implements Co
     @Override
     protected int getBodyLayout() {
         return R.layout.fragment_main;
+    }
+
+    @Override
+    protected boolean useToolbar() {
+        return true;
+    }
+
+    @Override
+    protected boolean useToolbarDivider() {
+        return true;
+    }
+
+    @Override
+    protected CharSequence setCenterTitle() {
+        return "我愛你";
     }
 
     @OnClick(R.id.kankan)

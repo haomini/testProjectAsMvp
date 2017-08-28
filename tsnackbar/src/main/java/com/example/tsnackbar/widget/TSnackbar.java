@@ -206,7 +206,7 @@ public final class TSnackbar {
 
     public TSnackbar setPrompt(@Prompt int prompt) {
         TextView messageView = mView.getMessageView();
-        switch (prompt){
+        switch (prompt) {
             case SUCCESS:
                 messageView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.msg_box_succeed, 0, 0, 0);
                 break;
@@ -220,6 +220,7 @@ public final class TSnackbar {
         }
         return this;
     }
+
     private final ViewGroup mTargetParent;
     private final Context mContext;
     final SnackbarLayout mView;
@@ -257,10 +258,42 @@ public final class TSnackbar {
         } else {
             mView = (SnackbarLayout) inflater.inflate(
                     R.layout.view_tsnackbar_layout, mTargetParent, false);
+
+            // 修改snackbar的高度
+            setMinHeight(ScreenUtil.getStatusHeight(mContext), mContext.getResources().getDimensionPixelSize(R.dimen.toolbar_height));
+
         }
 
         mAccessibilityManager = (AccessibilityManager)
                 mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
+    }
+
+    /**
+     * @param stateBarHeight
+     * @param actionBarHeight
+     * @return
+     */
+    public TSnackbar setMinHeight(int stateBarHeight, int actionBarHeight) {
+        if (appearType == APPEAR_FROM_TOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (stateBarHeight > 0 || actionBarHeight > 0) {
+                    mView.setPadding(0, stateBarHeight, 0, 0);
+                    mView.setMinimumHeight(stateBarHeight + actionBarHeight);
+                } else {
+                    mView.setPadding(0, ScreenUtil.getStatusHeight(mContext), 0, 0);
+                    mView.setMinimumHeight(ScreenUtil.getActionBarHeight(mContext) + ScreenUtil.getStatusHeight(mContext));
+                }
+            } else {
+                if (stateBarHeight > 0 || actionBarHeight > 0) {
+                    mView.setMinimumHeight(actionBarHeight);
+                    ScreenUtil.setMargins(mView, 0, stateBarHeight, 0, 0);
+                } else {
+                    mView.setMinimumHeight(ScreenUtil.getActionBarHeight(mContext));
+                    ScreenUtil.setMargins(mView, 0, ScreenUtil.getStatusHeight(mContext), 0, 0);
+                }
+            }
+        }
+        return this;
     }
 
     /**

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="show" />
 
-        <com.example.zhiyicx.justdodagger2.edittext.DeleteEditText_2
+        <com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText
             android:id="@+id/del"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
