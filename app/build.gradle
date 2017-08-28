@@ -37,18 +37,23 @@ buildscript {
 
 dependencies {
 
+    //field
     def dataDependencies = rootProject.ext.dataDependencies;
     def support = rootProject.ext.sdksoupportDependencies;
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    //support
     compile support.appcompatV7
+    compile support.cardview
 
     //dagger
     compile dataDependencies.dagger
     provided dataDependencies.javaxAnnotation
     provided dataDependencies.daggerCompiler
     annotationProcessor dataDependencies.daggerCompiler
+
+    //rxjava + android
     compile dataDependencies.rxJava
     compile dataDependencies.rxAndroid
     compile dataDependencies.rxlifecycle
@@ -56,7 +61,23 @@ dependencies {
     compile dataDependencies.rxlifecycleComponents
     compile dataDependencies.rxlifecycleNavi
     compile dataDependencies.rxlifecycleKotlin
+    compile support.rxpermissions
+
+    //butterknife
     compile dataDependencies.butterknife
     compile dataDependencies.butterknifeApt
+
+    //snackbar
     compile project(path: ':tsnackbar')
+
+    //gsy
+    compile dataDependencies.gsy_main
+    compile dataDependencies.gsy_armv5
+    compile dataDependencies.gsy_armv7a
+    compile dataDependencies.gsy_arm64
+
+    //skin
+    compile dataDependencies.skin
+    compile dataDependencies.skinDesign
+    compile dataDependencies.skinCardveiw
 }

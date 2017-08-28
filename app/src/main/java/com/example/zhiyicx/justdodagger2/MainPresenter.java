@@ -1,5 +1,7 @@
 package com.example.zhiyicx.justdodagger2;
 
+import com.example.zhiyicx.justdodagger2.base.BasePresenter;
+
 import javax.inject.Inject;
 
 /**
@@ -9,16 +11,11 @@ import javax.inject.Inject;
  * @Contact 605626708@qq.com
  */
 
-public class MainPresenter implements Contract.Presenter{
-
-    Repository repository;
-    Contract.View mRootView;
-
+public class MainPresenter extends BasePresenter<Contract.Repository, Contract.View> implements Contract.Presenter {
 
     @Inject
-    public MainPresenter(Repository r, Contract.View v) {
-        this.repository = r;
-        this.mRootView = v;
+    public MainPresenter(Contract.Repository r, Contract.View v) {
+        super(r, v);
     }
 
     @Inject
@@ -29,7 +26,7 @@ public class MainPresenter implements Contract.Presenter{
     // 继承自 专有功能接口 的方法实现
     @Override
     public void doA() {
-        repository.doRepository();
+        mRepository.doRepository();
     }
 
     @Override

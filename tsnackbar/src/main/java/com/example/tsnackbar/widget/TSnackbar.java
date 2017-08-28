@@ -204,6 +204,22 @@ public final class TSnackbar {
         });
     }
 
+    public TSnackbar setPrompt(@Prompt int prompt) {
+        TextView messageView = mView.getMessageView();
+        switch (prompt){
+            case SUCCESS:
+                messageView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.msg_box_succeed, 0, 0, 0);
+                break;
+            case ERROR:
+                messageView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.msg_box_remind, 0, 0, 0);
+                break;
+            case LOADING:
+                break;
+            case WARNING:
+                break;
+        }
+        return this;
+    }
     private final ViewGroup mTargetParent;
     private final Context mContext;
     final SnackbarLayout mView;
@@ -910,6 +926,15 @@ public final class TSnackbar {
                         view.getPaddingRight(), bottomPadding);
             }
         }
+    }
+
+    public static final int SUCCESS = 568;
+    public static final int ERROR = 569;
+    public static final int LOADING = 570;
+    public static final int WARNING = 571;
+
+    @IntDef({SUCCESS, ERROR, LOADING, WARNING})
+    public @interface Prompt {
     }
 
     final class Behavior extends SwipeDismissBehavior<SnackbarLayout> {

@@ -1,4 +1,4 @@
-package com.example.zhiyicx.justdodagger2.base;
+package com.example.zhiyicx.justdodagger2.base.i;
 
 /**
  * @Describe
@@ -8,6 +8,4 @@ package com.example.zhiyicx.justdodagger2.base;
  */
 
 public interface IBasePresenter {
-
-    void ibpToast();
 }

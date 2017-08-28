@@ -1,4 +1,4 @@
-package com.zhiyicx.baseproject.widget.edittext;
+package com.example.zhiyicx.justdodagger2.edittext;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 
-import com.zhiyicx.baseproject.R;
+import com.example.zhiyicx.justdodagger2.R;
+
 
 /**
  * @author LiuChao
@@ -19,7 +20,7 @@ import com.zhiyicx.baseproject.R;
  * @date 2017/1/8
  * @contact email:450127106@qq.com
  */
-public class DeleteEditText extends EditText implements OnFocusChangeListener, TextWatcher {
+public class DeleteEditText_2 extends EditText implements OnFocusChangeListener, TextWatcher {
     private static final int DEFAULT_DELETE_IMG = R.mipmap.login_inputbox_clean;
     /**
      * 删除按钮的引用
@@ -31,16 +32,16 @@ public class DeleteEditText extends EditText implements OnFocusChangeListener, T
     private boolean hasFoucs;
     private Context mContext;
 
-    public DeleteEditText(Context context) {
+    public DeleteEditText_2(Context context) {
         this(context, null);
     }
 
-    public DeleteEditText(Context context, AttributeSet attrs) {
+    public DeleteEditText_2(Context context, AttributeSet attrs) {
         // 这里构造方法也很重要，不加这个很多属性不能再XML里面定义
         this(context, attrs, android.R.attr.editTextStyle);
     }
 
-    public DeleteEditText(Context context, AttributeSet attrs, int defStyle) {
+    public DeleteEditText_2(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
         init();

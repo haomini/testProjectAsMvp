@@ -1,22 +1,16 @@
 package com.example.zhiyicx.justdodagger2;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.content.Intent;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
 
-import com.example.tsnackbar.widget.TSnackbar;
-import com.example.zhiyicx.justdodagger2.edittext.DeleteEditText;
+import com.example.zhiyicx.justdodagger2.base.BaseFragment;
+import com.example.zhiyicx.justdodagger2.edittext.DeleteEditText_2;
 import com.example.zhiyicx.justdodagger2.edittext.EditTextAddWrapper;
 import com.jakewharton.rxbinding.view.RxView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import butterknife.OnClick;
 
 /**
  * @Describe
@@ -25,61 +19,50 @@ import butterknife.Unbinder;
  * @Contact 605626708@qq.com
  */
 
-public class MainFragment extends Fragment implements Contract.View {
+public class MainFragment extends BaseFragment<Contract.Presenter> implements Contract.View {
 
-    Contract.Presenter presenter;
     @BindView(R.id.show)
     Button show;
-    Unbinder unbinder;
     @BindView(R.id.show_2)
     Button show2;
     @BindView(R.id.del)
-    DeleteEditText del;
-    private EditTextAddWrapper<DeleteEditText> wrapper;
+    DeleteEditText_2 del;
+    @BindView(R.id.edit)
+    EditText edit;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_main, null);
-        unbinder = ButterKnife.bind(this, v);
-        return v;
-    }
+    private EditTextAddWrapper<DeleteEditText_2> wrapper;
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        presenter.doA();
+    protected void initView() {
+
         RxView.clicks(show)
-                .subscribe(aVoid -> presenter.ibpToast());
+                .compose(this.bindToLifecycle())
+                .subscribe(aVoid -> mPresenter.ibpToast());
 
         RxView.clicks(show2)
-                .subscribe(aVoid -> {
-                    TSnackbar snackbar = TSnackbar.make(getView(), "text", TSnackbar.LENGTH_SHORT, TSnackbar.APPEAR_FROM_BOTTOM);
-                    View view = snackbar.getView();
-                    view.setBackgroundResource(android.R.color.white);
-                    snackbar.setAction("this is action", v -> Toast.makeText(getActivity(), "wool", Toast.LENGTH_SHORT).show())
-                            .show();
-                });
-
-        wrapper = new EditTextAddWrapper<>(del, "--", 3, 4);
+                .compose(this.bindToLifecycle())
+                .subscribe(aVoid -> showSnackSuccessMessage(wrapper.getText()));
     }
 
     @Override
-    public void setPresenter(Contract.Presenter presenter) {
-        this.presenter = presenter;
+    protected void initData() {
+        mPresenter.doA();
+
+        wrapper = new EditTextAddWrapper<>(del, " ", 5, 5);
+        wrapper.setText("19213412312");
     }
 
     public void doShowSnack() {
-        TSnackbar snackbar = TSnackbar.make(getView(), "text", TSnackbar.LENGTH_SHORT, TSnackbar.APPEAR_FROM_TOP);
-        View view = snackbar.getView();
-        view.setBackgroundResource(android.R.color.white);
-        snackbar.setAction("this is action", v -> Toast.makeText(getActivity(), "wool", Toast.LENGTH_SHORT).show())
-                .show();
+        showSnackErrorMessage(wrapper.getFormatedText());
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    protected int getBodyLayout() {
+        return R.layout.fragment_main;
+    }
+
+    @OnClick(R.id.kankan)
+    public void onViewClicked() {
+        startActivity(new Intent(getActivity(), ThinkActivity.class));
     }
 }

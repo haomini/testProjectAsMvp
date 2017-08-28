@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="important_for_theme">#fff</color>
+    <color name="important_for_theme">#5df04a</color>
     <color name="general_for_bg_light">#f4f5f5</color>
     <color name="general_for_bg_light_alpha_0.5">#80f4f5f5</color>
     <!--主题色-->

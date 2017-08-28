@@ -70,7 +70,7 @@ public class DeleteEditText extends android.support.v7.widget.AppCompatEditText 
     private GestureDetector.OnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
-            setText("");
+            getText().clear();
             return true;
         }
     };

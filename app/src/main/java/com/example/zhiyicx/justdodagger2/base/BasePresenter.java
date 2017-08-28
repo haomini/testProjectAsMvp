@@ -1,5 +1,8 @@
 package com.example.zhiyicx.justdodagger2.base;
 
+import com.example.zhiyicx.justdodagger2.base.i.IBasePresenter;
+import com.example.zhiyicx.justdodagger2.base.i.IBaseView;
+
 import javax.inject.Inject;
 
 /**
@@ -9,10 +12,10 @@ import javax.inject.Inject;
  * @Contact 605626708@qq.com
  */
 
-public abstract class BasePresenter<R, V extends BaseView> implements IBasePresenter {
+public abstract class BasePresenter<R, V extends IBaseView> implements IBasePresenter {
 
-    R mRepository;
-    V mRootView;
+    protected R mRepository;
+    protected V mRootView;
 
     public BasePresenter(R r, V v) {
         this.mRepository = r;
@@ -22,10 +25,5 @@ public abstract class BasePresenter<R, V extends BaseView> implements IBasePrese
     @Inject
     public void setUpView() {
         mRootView.setPresenter(this);
-    }
-
-    @Override
-    public void ibpToast() {
-
     }
 }

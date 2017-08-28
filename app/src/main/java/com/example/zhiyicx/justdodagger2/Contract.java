@@ -1,7 +1,7 @@
 package com.example.zhiyicx.justdodagger2;
 
-import com.example.zhiyicx.justdodagger2.base.BaseView;
-import com.example.zhiyicx.justdodagger2.base.IBasePresenter;
+import com.example.zhiyicx.justdodagger2.base.i.IBasePresenter;
+import com.example.zhiyicx.justdodagger2.base.i.IBaseView;
 
 /**
  * @Describe
@@ -13,13 +13,15 @@ import com.example.zhiyicx.justdodagger2.base.IBasePresenter;
 public interface Contract {
     interface Presenter extends IBasePresenter {
         void doA();
+
+        void ibpToast();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends IBaseView<Presenter> {
         void doShowSnack();
     }
 
     interface Repository {
-
+        void doRepository();
     }
 }
