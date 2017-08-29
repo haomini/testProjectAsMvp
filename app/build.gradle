@@ -80,4 +80,8 @@ dependencies {
     compile dataDependencies.skin
     compile dataDependencies.skinDesign
     compile dataDependencies.skinCardveiw
+
+    //smart_refresh
+    compile dataDependencies.smart_layout
+    compile dataDependencies.smart_header
 }

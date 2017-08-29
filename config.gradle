@@ -37,6 +37,9 @@ ext {
     //gsy version
     gsyVersion = '2.0.5'
 
+    //smart version
+    smartVersion = '1.0.3'
+
     dataDependencies = [
             // dex分包
             multidex                     : "com.android.support:multidex:1.0.1",
@@ -104,7 +107,10 @@ ext {
             gsy_main                     : "com.shuyu:gsyVideoPlayer-java:${gsyVersion}",
             gsy_armv5                    : "com.shuyu:gsyVideoPlayer-armv5:${gsyVersion}",
             gsy_armv7a                   : "com.shuyu:gsyVideoPlayer-armv7a:${gsyVersion}",
-            gsy_arm64                    : "com.shuyu:gsyVideoPlayer-arm64:${gsyVersion}"
+            gsy_arm64                    : "com.shuyu:gsyVideoPlayer-arm64:${gsyVersion}",
+            
+            smart_layout                 : "com.scwang.smartrefresh:SmartRefreshLayout:${smartVersion}",
+            smart_header                 : "com.scwang.smartrefresh:SmartRefreshHeader:${smartVersion}"//没有使用特殊Header，可以不加这行
     ]
     sdksoupportDependencies = [
             appcompatV7     : "com.android.support:appcompat-v7:${androidSupportSdkVersion}",

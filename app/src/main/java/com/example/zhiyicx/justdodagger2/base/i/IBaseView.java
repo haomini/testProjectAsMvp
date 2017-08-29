@@ -36,4 +36,14 @@ public interface IBaseView<T extends IBasePresenter> {
      * @param s
      */
     void showSnackLoadingMessage(CharSequence s);
+
+    /**
+     * 显示等待提示
+     */
+    void showLoading();
+
+    /**
+     * 隐藏等待
+     */
+    void hideLoading();
 }

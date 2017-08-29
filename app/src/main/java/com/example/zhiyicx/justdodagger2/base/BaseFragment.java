@@ -24,6 +24,8 @@ import com.example.zhiyicx.justdodagger2.utils.DeviceUtils;
 import com.example.zhiyicx.justdodagger2.utils.StatusBarUtils;
 import com.example.zhiyicx.justdodagger2.utils.UIUtils;
 import com.jakewharton.rxbinding.view.RxView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
@@ -43,16 +45,23 @@ import static com.example.zhiyicx.justdodagger2.base.config.ConstantConfig.JITTE
  */
 
 public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment implements IBaseView<P> {
-    @LayoutRes private final static int DEFAULT_TOOLBAR = R.layout.activity_main;
-    @ColorRes private static final int DEFAULT_TOOLBAR_BACKGROUD_COLOR = R.color.white;// 默认的toolbar背景色
-    @ColorRes private static final int DEFAULT_DIVIDER_COLOR = R.color.general_for_line;// 默认的toolbar下方分割线颜色
-    @DrawableRes private static final int DEFAULT_TOOLBAR_LEFT_IMG = R.mipmap.topbar_back;// 默认的toolbar左边的图片，一般是返回键
+    @LayoutRes
+    private final static int DEFAULT_TOOLBAR = R.layout.default_toolbar;
+    @ColorRes
+    private static final int DEFAULT_TOOLBAR_BACKGROUD_COLOR = R.color.white;// 默认的toolbar背景色
+    @ColorRes
+    private static final int DEFAULT_DIVIDER_COLOR = R.color.general_for_line;// 默认的toolbar下方分割线颜色
+    @DrawableRes
+    private static final int DEFAULT_TOOLBAR_LEFT_IMG = R.mipmap.topbar_back;// 默认的toolbar左边的图片，一般是返回键
+    @LayoutRes
+    private static final int DEFAULT_HEADER = R.layout.full_scroll_header; //默认的header
 
     private Unbinder mUnBinder;
     protected View mDocerView;
     protected RxPermissions mRxPermissions;
     protected P mPresenter;
     protected SkinCompatToolbar mToolbar;
+    protected View mHeader;
 
     private TextView mToolbarLeft, mToolbarRight, mToolbarCenter;
     private ImageView mIvRefresh;
@@ -114,8 +123,23 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
             StatusBarUtils.statusBarLightMode(getActivity());
         }
         View contentView = inflater.inflate(getBodyLayout(), null);
-        contentView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        linearLayout.addView(contentView);
+        contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        SmartRefreshLayout smartRefreshLayout = new SmartRefreshLayout(getActivity());
+        smartRefreshLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        // 添加默认的头, 为了模仿支付宝..o.o
+        if (useHeader() && getHeaderLayout() != 0x0) {
+            mHeader = inflater.inflate(getHeaderLayout(), null);
+            if (getHeaderLayout() == DEFAULT_HEADER) {
+                mHeader.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDisplayMetrics().heightPixels));
+            }
+            smartRefreshLayout.addView(mHeader);
+        }
+        smartRefreshLayout.addView(contentView);
+        if (useFooter() && getFooterView() != null) {
+            smartRefreshLayout.addView(getFooterView());
+        }
+
+        linearLayout.addView(smartRefreshLayout);
         return linearLayout;
     }
 
@@ -293,9 +317,7 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
     protected abstract void initData();
 
     @LayoutRes
-    protected int getBodyLayout() {
-        return 0x0;
-    }
+    protected abstract int getBodyLayout();
 
     @Override
     public void onDestroyView() {
@@ -304,16 +326,33 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
     }
 
     @LayoutRes
+    protected int getHeaderLayout() {
+        return DEFAULT_HEADER;
+    }
+
+    protected boolean useHeader() {
+        return true;
+    }
+
+    protected boolean useFooter() {
+        return false;
+    }
+
+    protected View getFooterView() {
+        return new ClassicsFooter(getActivity());
+    }
+
+    @LayoutRes
     protected int getToolbarLayout() {
         return DEFAULT_TOOLBAR;
     }
 
     protected boolean useToolbar() {
-        return false;
+        return true;
     }
 
     protected boolean useToolbarDivider() {
-        return false;
+        return true;
     }
 
     protected boolean usePermissions() {
@@ -325,6 +364,16 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
     }
 
     protected void showWhenSnackDismissed() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
 
     }
 }

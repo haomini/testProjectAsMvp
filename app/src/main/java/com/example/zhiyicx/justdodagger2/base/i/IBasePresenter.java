@@ -8,4 +8,5 @@ package com.example.zhiyicx.justdodagger2.base.i;
  */
 
 public interface IBasePresenter {
+    void dealError(int status, String reason);
 }
