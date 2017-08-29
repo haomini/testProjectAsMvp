@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/style_edit_white_container">
+
+        <TextView
+            style="@style/style_small_text"
+            android:text="用户名" />
+
+        <com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText
+            android:id="@+id/et_regist_username"
+            style="@style/style_edit"
+            android:hint="请输入用户名"
+            android:inputType="textPersonName"
+            android:maxLength="15" />
+    </LinearLayout>
+
+    <ImageView style="@style/style_divider_horizontal_light" />
+
+    <RelativeLayout style="@style/style_edit_white_container">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_register_pwd"
+                style="@style/style_edit_white_container">
+
+                <TextView
+                    style="@style/style_small_text"
+                    android:text="密码" />
+
+                <com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText
+                    android:id="@+id/et_regist_pwd"
+                    style="@style/style_edit"
+                    android:hint="请输入手机号"
+                    android:inputType="phone"
+                    android:maxLength="15" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <ImageView style="@style/style_divider_horizontal_light" />
+
+    <LinearLayout style="@style/style_edit_white_container">
+
+        <TextView
+            style="@style/style_small_text"
+            android:text="确认密码" />
+
+        <com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText
+            android:id="@+id/et_regist_pwd_sure"
+            style="@style/style_edit"
+            android:hint="请输入至少六位密码"
+            android:inputType="textPassword"
+            android:maxLength="15" />
+
+    </LinearLayout>
+
+
+    <include layout="@layout/include_error_tip_text" />
+
+    <com.example.zhiyicx.justdodagger2.widget.button.LoadingButton
+        android:id="@+id/bt_regist_regist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector_loading_button"
+        android:text="注册" />
+
+</LinearLayout>

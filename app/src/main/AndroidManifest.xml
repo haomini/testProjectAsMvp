@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.zhiyicx.justdodagger2">
 
-    <!--覆盖gsy包类sdk版本-->
+    <!--覆盖gsy包内sdk版本-->
     <uses-sdk tools:overrideLibrary="
     com.shuyu.gsyvideoplayer,
     com.shuyu.gsyvideoplayer.armv5,
@@ -18,8 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/TSTheme">
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".ThinkActivity" />
         <activity android:name=".modules.login.LoginActivity">
             <intent-filter>
@@ -28,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".modules.register.RegisterActivity" />
     </application>
 
 </manifest>

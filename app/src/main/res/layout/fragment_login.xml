@@ -8,79 +8,76 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_marginTop="@dimen/margin_small"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="用户名"
-            android:textColor="@color/important_for_content"
-            android:textSize="@dimen/content_size" />
+        <LinearLayout style="@style/style_edit_white_container">
 
-        <android.support.v7.widget.AppCompatAutoCompleteTextView
-            android:id="@+id/et_complete_input"
+            <TextView
+                style="@style/style_small_text"
+                android:text="账号" />
+
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/et_complete_input"
+                style="@style/style_edit"
+                android:layout_weight="1"
+                android:completionThreshold="1"
+                android:hint="请输入账号"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/iv_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:src="@mipmap/login_inputbox_clean"
+                android:visibility="gone" />
+
+            <com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText
+                android:id="@+id/et_login_phone"
+                style="@style/style_edit"
+                android:hint="请输入账号"
+                android:inputType="textPersonName"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <ImageView style="@style/style_divider_horizontal_light" />
+
+        <LinearLayout style="@style/style_edit_white_container">
+
+            <TextView
+                style="@style/style_small_text"
+                android:text="密码" />
+
+            <com.example.zhiyicx.justdodagger2.widget.edittext.PasswordEditText
+                android:id="@+id/et_login_password"
+                style="@style/style_edit"
+                android:hint="请输入至少六位密码"
+                android:inputType="text"
+                android:text="" />
+        </LinearLayout>
+
+        <!--登录异常相关提示-->
+        <include layout="@layout/include_error_tip_text" />
+
+        <com.example.zhiyicx.justdodagger2.widget.button.LoadingButton
+            android:id="@+id/login"
+            style="@style/loading_button_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:completionThreshold="1"
-            android:hint="请输入用户名"
-            android:imeOptions="actionNext"
-            android:paddingLeft="@dimen/margin_small"
-            android:paddingRight="@dimen/margin_small"
-            android:singleLine="true"
-            android:visibility="visible" />
-
-        <com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText
-            android:id="@+id/et_login_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="请输入用户名"
-            android:inputType="textPersonName"
-            android:visibility="gone" />
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginRight="@dimen/margin_large"
+            android:text="登陆" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_len"
-        android:background="@color/origin_divider_color"></View>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-
-        <TextView
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="密码"
-            android:textColor="@color/important_for_content"
-            android:textSize="@dimen/content_size" />
-
-        <EditText
-            android:id="@+id/et_login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="请输入至少6位密码"
-            android:inputType="textPassword" />
-    </LinearLayout>
-
-    <!--登录异常相关提示-->
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="看看看卡" />
-
-    <com.example.zhiyicx.justdodagger2.widget.button.LoadingButton
-        android:id="@+id/login"
-        style="@style/loading_button_style"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_gravity="right"
         android:layout_marginRight="@dimen/margin_large"
-        android:text="login"
-        android:textAllCaps="true" />
+        android:layout_marginTop="@dimen/margin_large"
+        android:text="注册" />
 </LinearLayout>
