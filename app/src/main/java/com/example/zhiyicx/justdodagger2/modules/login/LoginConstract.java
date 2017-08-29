@@ -12,7 +12,7 @@ import com.example.zhiyicx.justdodagger2.base.i.IBaseView;
 
 public interface LoginConstract {
     interface View extends IBaseView<Presenter> {
-
+        void loginSuccess();
     }
 
     interface Presenter extends IBasePresenter {

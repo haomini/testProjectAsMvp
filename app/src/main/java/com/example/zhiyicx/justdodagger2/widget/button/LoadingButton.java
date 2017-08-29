@@ -30,15 +30,13 @@ public class LoadingButton extends android.support.v7.widget.AppCompatButton {
     }
 
     private void init() {
-        //将文字放中间
-        setGravity(Gravity.CENTER);
+        //将文字放左边, 移动画布使之导致中间
+        setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         drawable = (AnimationDrawable) getResources().getDrawable(R.drawable.frame_loading_white);
     }
 
     public void handleAnimation() {
         setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
-        //将文字放左边, 移动画布使之导致中间
-        setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         this.setEnabled(false);
         drawable.start();
     }
@@ -48,23 +46,19 @@ public class LoadingButton extends android.support.v7.widget.AppCompatButton {
         drawable.selectDrawable(0);
         drawable.stop();
         setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-        setGravity(Gravity.CENTER);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         Drawable[] drawables = getCompoundDrawables();
-        if (drawables != null) {
+        int bodyWidth = 0;
+        if (drawables != null && drawables[0] != null) {
             Drawable drawableLeft = drawables[0];
-            if (drawableLeft != null) {
-                float textWidth = getPaint().measureText(getText().toString());
-                int drawablePadding = getCompoundDrawablePadding();
-                int drawableWidth = 0;
-                drawableWidth = drawableLeft.getIntrinsicWidth();
-                float bodyWidth = textWidth + drawableWidth + drawablePadding;
-                canvas.translate((getWidth() - bodyWidth) / 2, 0);
-            }
+            bodyWidth = getCompoundDrawablePadding() + drawableLeft.getIntrinsicWidth();
         }
+        float textWidth = getPaint().measureText(getText().toString());
+        bodyWidth += textWidth;
+        canvas.translate((getWidth() - bodyWidth) / 2, 0);
         super.onDraw(canvas);
     }
 }

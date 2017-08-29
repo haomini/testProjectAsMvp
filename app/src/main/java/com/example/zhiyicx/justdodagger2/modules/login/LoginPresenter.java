@@ -1,6 +1,7 @@
 package com.example.zhiyicx.justdodagger2.modules.login;
 
 import com.example.zhiyicx.justdodagger2.base.BasePresenter;
+import com.example.zhiyicx.justdodagger2.base.BaseSubscriber;
 
 import javax.inject.Inject;
 
@@ -22,8 +23,16 @@ public class LoginPresenter extends BasePresenter<ILoginRepository, LoginConstra
     public void login(String userName, String pwd) {
         mRepository.login(userName, pwd)
                 .compose(mTransformer)
-                .subscribe(objectBaseBean -> {
+                .subscribe(new BaseSubscriber<Object>() {
+                    @Override
+                    protected void onFailed(int status, String reason) {
+                        dealError(status, reason);
+                    }
 
+                    @Override
+                    protected void onSuccess(Object o) {
+                        mRootView.loginSuccess();
+                    }
                 });
 
     }

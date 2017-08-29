@@ -38,7 +38,6 @@ public class LoginFragment extends BaseFragment<LoginConstract.Presenter> implem
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -56,5 +55,10 @@ public class LoginFragment extends BaseFragment<LoginConstract.Presenter> implem
     public void hideLoading() {
         login.setEnabled(false);
         login.hideAnimation();
+    }
+
+    @Override
+    public void loginSuccess() {
+
     }
 }
