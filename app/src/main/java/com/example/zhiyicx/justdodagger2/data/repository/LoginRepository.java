@@ -1,6 +1,8 @@
 package com.example.zhiyicx.justdodagger2.data.repository;
 
 import com.example.zhiyicx.justdodagger2.base.BaseBean;
+import com.example.zhiyicx.justdodagger2.data.bean.User;
+import com.example.zhiyicx.justdodagger2.data.sql.UserManager;
 import com.example.zhiyicx.justdodagger2.modules.login.ILoginRepository;
 
 import javax.inject.Inject;
@@ -21,7 +23,8 @@ public class LoginRepository implements ILoginRepository {
     }
 
     @Override
-    public Observable<BaseBean<Object>> login(String userName, String pwd) {
-        return null;
+    public Observable<BaseBean<User>> login(String userName, String pwd) {
+        return Observable
+                .just(UserManager.getInstance().queryUserWithPwd(userName, pwd));
     }
 }

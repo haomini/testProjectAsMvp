@@ -5,17 +5,17 @@ import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.EditText;
 
 import com.example.zhiyicx.justdodagger2.R;
 
 
 /**
- * @author LiuChao
- * @describe 能够显示和隐藏密码（密码明文，暗文切换）
- * @date 2017/1/6
- * @contact email:450127106@qq.com
+ * @Describe
+ * @Author zhouhao
+ * @Date 2017/8/29
+ * @Contact 605626708@qq.com
  */
+
 public class PasswordEditText extends android.support.v7.widget.AppCompatEditText {
     // 当前密码可见时的图片
     private static final int SHOW_ICON = R.mipmap.login_ico_copeneye;

@@ -24,8 +24,8 @@ public abstract class BasePresenter<IR, V extends IBaseView> implements IBasePre
     protected IR mRepository;
     protected V mRootView;
 
-    protected Observable.Transformer mTransformer = o -> Observable.just(o)
-            .subscribeOn(Schedulers.newThread())
+    protected Observable.Transformer mTransformer = observable -> ((Observable) observable).subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread());
 
     public BasePresenter(IR r, V v) {

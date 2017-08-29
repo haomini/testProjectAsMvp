@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout style="@style/style_edit_white_container">
+    <LinearLayout
+        android:layout_marginTop="@dimen/margin_small"
+        style="@style/style_edit_white_container">
 
         <TextView
             style="@style/style_small_text"

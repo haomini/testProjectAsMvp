@@ -7,5 +7,5 @@
     <dimen name="default_corner_radius">4dp</dimen>
     <dimen name="default_shadow_radius">4dp</dimen>
 
-    <dimen name="divider_len">1dp</dimen>
+    <dimen name="divider_len">0.5dp</dimen>
 </resources>

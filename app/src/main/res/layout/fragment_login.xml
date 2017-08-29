@@ -17,30 +17,12 @@
                 style="@style/style_small_text"
                 android:text="账号" />
 
-            <android.support.v7.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/et_complete_input"
-                style="@style/style_edit"
-                android:layout_weight="1"
-                android:completionThreshold="1"
-                android:hint="请输入账号"
-                android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:visibility="visible" />
-
-            <ImageView
-                android:id="@+id/iv_clear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:src="@mipmap/login_inputbox_clean"
-                android:visibility="gone" />
-
             <com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText
                 android:id="@+id/et_login_phone"
                 style="@style/style_edit"
                 android:hint="请输入账号"
                 android:inputType="textPersonName"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </LinearLayout>
 
         <ImageView style="@style/style_divider_horizontal_light" />
@@ -55,8 +37,7 @@
                 android:id="@+id/et_login_password"
                 style="@style/style_edit"
                 android:hint="请输入至少六位密码"
-                android:inputType="text"
-                android:text="" />
+                android:inputType="text" />
         </LinearLayout>
 
         <!--登录异常相关提示-->
@@ -69,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_large"
             android:layout_marginRight="@dimen/margin_large"
+            android:layout_marginTop="20dp"
             android:text="登陆" />
     </LinearLayout>
 

@@ -32,6 +32,7 @@ public class LoginPresenter extends BasePresenter<ILoginRepository, LoginConstra
                     @Override
                     protected void onSuccess(Object o) {
                         mRootView.loginSuccess();
+                        mRootView.hideLoading();
                     }
                 });
 

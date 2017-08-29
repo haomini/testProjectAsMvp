@@ -31,6 +31,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterRepository, Regist
 
                     @Override
                     protected void onSuccess(Object o) {
+                        mRootView.hideLoading();
                         mRootView.registerSuccess();
                     }
                 });

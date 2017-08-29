@@ -1,6 +1,7 @@
 package com.example.zhiyicx.justdodagger2.modules.login;
 
 import com.example.zhiyicx.justdodagger2.base.BaseBean;
+import com.example.zhiyicx.justdodagger2.data.bean.User;
 
 import rx.Observable;
 
@@ -12,5 +13,5 @@ import rx.Observable;
  */
 
 public interface ILoginRepository {
-    Observable<BaseBean<Object>> login(String userName, String pwd);
+    Observable<BaseBean<User>> login(String userName, String pwd);
 }

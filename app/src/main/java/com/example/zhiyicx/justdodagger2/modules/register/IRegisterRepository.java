@@ -12,5 +12,5 @@ import rx.Observable;
  */
 
 public interface IRegisterRepository {
-    Observable<BaseBean<Object>> register(String userName, String pwd);
+    Observable<BaseBean> register(String userName, String pwd);
 }
