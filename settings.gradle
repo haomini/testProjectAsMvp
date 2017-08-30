@@ -1,1 +1,1 @@
-include ':app', ':tsnackbar'
+include ':app', ':tsnackbar', ':baseadapter-recyclerview'

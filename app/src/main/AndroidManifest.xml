@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.zhiyicx.justdodagger2">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.example.zhiyicx.justdodagger2">
+
+    <!-- 请求访问网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 请求访问网络 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+     
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
     <!--覆盖gsy包内sdk版本-->
     <uses-sdk tools:overrideLibrary="
     com.shuyu.gsyvideoplayer,
     com.shuyu.gsyvideoplayer.armv5,
     com.shuyu.gsyvideoplayer.armv7a,
-    com.shuyu.gsyvideoplayer.armv64" />
+    com.shuyu.gsyvideoplayer.armv64"/>
 
     <application
         android:name=".base.BaseApplication"
@@ -19,16 +28,20 @@
         android:supportsRtl="true"
         android:theme="@style/TSTheme">
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".ThinkActivity" />
+        <activity android:name=".ThinkActivity"/>
         <activity android:name=".modules.login.LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".modules.register.RegisterActivity" />
-        <activity android:name=".modules.home.HomeActivity"/>
+        <activity android:name=".modules.register.RegisterActivity"/>
+        <activity
+            android:name=".modules.home.HomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".modules.read.detail.ReadDetailActivity"/>
     </application>
 
 </manifest>

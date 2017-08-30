@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/space"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
 
     <LinearLayout
         android:id="@+id/ll_bottom_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/custom_navigationbar_height"
         android:layout_alignParentBottom="true"
-        android:background="@color/home_bottom_navigate_bg"
+        android:background="@color/themeColor"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -25,7 +31,7 @@
                 android:id="@+id/iv_home"
                 android:layout_width="@dimen/icon_for_home_bottom"
                 android:layout_height="@dimen/icon_for_home_bottom"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ico_video"/>
 
             <TextView
                 android:id="@+id/tv_home"
@@ -34,7 +40,7 @@
                 android:layout_marginTop="@dimen/icon_for_home_bottom_text_margin"
                 android:text="视频"
                 android:textColor="@color/home_bottom_navigate_text_normal"
-                android:textSize="@dimen/size_note_assist" />
+                android:textSize="@dimen/size_note_assist"/>
         </LinearLayout>
 
 
@@ -51,7 +57,7 @@
                 android:id="@+id/iv_find"
                 android:layout_width="@dimen/icon_for_home_bottom"
                 android:layout_height="@dimen/icon_for_home_bottom"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ico_music"/>
 
             <TextView
                 android:id="@+id/tv_find"
@@ -60,7 +66,7 @@
                 android:layout_marginTop="@dimen/icon_for_home_bottom_text_margin"
                 android:text="音乐"
                 android:textColor="@color/home_bottom_navigate_text_normal"
-                android:textSize="@dimen/size_note_assist" />
+                android:textSize="@dimen/size_note_assist"/>
         </LinearLayout>
 
         <LinearLayout
@@ -81,7 +87,7 @@
                     android:layout_width="@dimen/icon_for_home_bottom"
                     android:layout_height="@dimen/icon_for_home_bottom"
                     android:layout_centerHorizontal="true"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/ico_read"/>
             </RelativeLayout>
 
             <TextView
@@ -91,7 +97,7 @@
                 android:layout_marginTop="@dimen/icon_for_home_bottom_text_margin"
                 android:text="阅读"
                 android:textColor="@color/home_bottom_navigate_text_normal"
-                android:textSize="@dimen/size_note_assist" />
+                android:textSize="@dimen/size_note_assist"/>
         </LinearLayout>
 
         <LinearLayout
@@ -112,7 +118,7 @@
                     android:layout_width="@dimen/icon_for_home_bottom"
                     android:layout_height="@dimen/icon_for_home_bottom"
                     android:layout_centerHorizontal="true"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/ico_me"/>
             </RelativeLayout>
 
 
@@ -123,13 +129,14 @@
                 android:layout_marginTop="@dimen/icon_for_home_bottom_text_margin"
                 android:text="我的"
                 android:textColor="@color/home_bottom_navigate_text_normal"
-                android:textSize="@dimen/size_note_assist" />
+                android:textSize="@dimen/size_note_assist"/>
         </LinearLayout>
     </LinearLayout>
 
     <FrameLayout
+        android:layout_below="@id/space"
         android:id="@+id/controller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/ll_bottom_container" />
+        android:layout_above="@id/ll_bottom_container"/>
 </RelativeLayout>

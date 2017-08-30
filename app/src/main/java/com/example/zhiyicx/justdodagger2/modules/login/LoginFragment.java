@@ -69,7 +69,10 @@ public class LoginFragment extends BaseFragment<LoginConstract.Presenter> implem
         RxView.clicks(mRegister)
                 .throttleFirst(ConstantConfig.JITTER_SPACING_TIME, TimeUnit.SECONDS)
                 .compose(this.bindToLifecycle())
-                .subscribe(aVoid -> startActivity(new Intent(getActivity(), RegisterActivity.class)));
+                .subscribe(aVoid -> {
+                    startActivity(new Intent(getActivity(), RegisterActivity.class));
+                    getActivity().finish();
+                });
     }
 
     @Override

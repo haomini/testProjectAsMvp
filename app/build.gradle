@@ -85,4 +85,5 @@ dependencies {
     compile dataDependencies.smart_layout
     compile dataDependencies.smart_header
     testCompile 'junit:junit:4.12'
+    compile project(path: ':baseadapter-recyclerview')
 }

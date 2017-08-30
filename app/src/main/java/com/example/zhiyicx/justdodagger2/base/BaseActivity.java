@@ -2,6 +2,7 @@ package com.example.zhiyicx.justdodagger2.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.zhiyicx.justdodagger2.R;
@@ -17,7 +18,7 @@ import butterknife.Unbinder;
  * @Contact 605626708@qq.com
  */
 
-public abstract class BaseActivity<P extends BasePresenter, F extends BaseFragment> extends AppCompatActivity {
+public abstract class BaseActivity<P extends BasePresenter, F extends Fragment> extends AppCompatActivity {
     private Unbinder unbinder;
     @Inject
     protected P mPresenter;
@@ -29,6 +30,7 @@ public abstract class BaseActivity<P extends BasePresenter, F extends BaseFragme
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        doBeforeCreate();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.default_bse_activity);
         initView();
@@ -40,5 +42,9 @@ public abstract class BaseActivity<P extends BasePresenter, F extends BaseFragme
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.replacement, mFragment)
                 .commit();
+    }
+
+    protected void doBeforeCreate(){
+
     }
 }
