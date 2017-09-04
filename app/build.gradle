@@ -61,7 +61,15 @@ dependencies {
     compile dataDependencies.rxlifecycleComponents
     compile dataDependencies.rxlifecycleNavi
     compile dataDependencies.rxlifecycleKotlin
+    compile dataDependencies.rxcache
+    compile dataDependencies.rxcacheJolyglotGson
     compile support.rxpermissions
+
+    // retrofit
+    compile dataDependencies.retrofit
+    compile dataDependencies.retrofitConverterGson
+    compile dataDependencies.retorfitConverterScalar
+    compile dataDependencies.retrofitAdapterRxJava
 
     //butterknife
     compile dataDependencies.butterknife
