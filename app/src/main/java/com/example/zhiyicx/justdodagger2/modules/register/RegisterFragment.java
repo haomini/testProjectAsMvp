@@ -1,5 +1,6 @@
 package com.example.zhiyicx.justdodagger2.modules.register;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import com.example.zhiyicx.justdodagger2.R;
 import com.example.zhiyicx.justdodagger2.base.BaseFragment;
 import com.example.zhiyicx.justdodagger2.base.config.ConstantConfig;
+import com.example.zhiyicx.justdodagger2.modules.home.HomeActivity;
 import com.example.zhiyicx.justdodagger2.widget.button.LoadingButton;
 import com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText;
 import com.jakewharton.rxbinding.view.RxView;
@@ -108,6 +110,8 @@ public class RegisterFragment extends BaseFragment<RegisterConstract.Presenter> 
     @Override
     public void registerSuccess() {
         showSnackSuccessMessage("注册成功,请登录");
+        startActivity(new Intent(getActivity(), HomeActivity.class));
+        getActivity().finish();
         Observable.timer(200, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> getActivity().finish());

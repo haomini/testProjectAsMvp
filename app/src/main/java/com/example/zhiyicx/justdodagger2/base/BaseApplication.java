@@ -2,6 +2,10 @@ package com.example.zhiyicx.justdodagger2.base;
 
 import android.app.Application;
 
+import com.example.zhiyicx.justdodagger2.base.dagger.app.AppComponent;
+import com.example.zhiyicx.justdodagger2.base.dagger.app.DaggerAppComponent;
+import com.example.zhiyicx.justdodagger2.base.dagger.app.HttpClientModule;
+
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
 import skin.support.design.app.SkinMaterialViewInflater;
@@ -22,6 +26,7 @@ public class BaseApplication extends Application {
         application = this;
         super.onCreate();
         initSkin();
+        initAppComponent();
     }
 
     protected void initSkin() {
@@ -30,9 +35,33 @@ public class BaseApplication extends Application {
                 .addInflater(new SkinMaterialViewInflater())    // material design 控件换肤初始化[可选]
                 .addInflater(new SkinCardViewInflater())        // CardView v7 控件换肤初始化[可选]
                 .loadSkin();
+
     }
 
     public static BaseApplication getApp() {
         return application;
+    }
+
+    public void initAppComponent() {
+        AppComponent mAppComponent = DaggerAppComponent.builder()
+                .httpClientModule(new HttpClientModule())
+                .serviceModule(new ServiceModule())
+                .build();
+
+        AppComponentHolder.setAppComponent(mAppComponent);
+        mAppComponent.inject(this);
+    }
+
+    public static class AppComponentHolder {
+
+        private static AppComponent mAppComponent;
+
+        public static AppComponent getAppComponent() {
+            return mAppComponent;
+        }
+
+        public static void setAppComponent(AppComponent appComponent) {
+            mAppComponent = appComponent;
+        }
     }
 }

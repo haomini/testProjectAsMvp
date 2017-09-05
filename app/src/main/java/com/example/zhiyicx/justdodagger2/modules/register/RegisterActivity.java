@@ -1,6 +1,7 @@
 package com.example.zhiyicx.justdodagger2.modules.register;
 
 import com.example.zhiyicx.justdodagger2.base.BaseActivity;
+import com.example.zhiyicx.justdodagger2.base.BaseApplication;
 
 /**
  * @Describe
@@ -20,6 +21,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter, RegisterFr
     protected void daggerForm() {
         DaggerRegisterComponent
                 .builder()
+                .appComponent(BaseApplication.AppComponentHolder.getAppComponent())
                 .registerPresenterModule(new RegisterPresenterModule(mFragment))
                 .build()
                 .inject(this);

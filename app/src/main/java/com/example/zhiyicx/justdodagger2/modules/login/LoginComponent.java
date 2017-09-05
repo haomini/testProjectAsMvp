@@ -1,6 +1,8 @@
 package com.example.zhiyicx.justdodagger2.modules.login;
 
 import com.example.zhiyicx.justdodagger2.base.InjectComponent;
+import com.example.zhiyicx.justdodagger2.base.dagger.app.AppComponent;
+import com.example.zhiyicx.justdodagger2.base.dagger.scope.PerActivity;
 
 import dagger.Component;
 
@@ -11,6 +13,7 @@ import dagger.Component;
  * @Contact 605626708@qq.com
  */
 
-@Component(modules = LoginPresenterModule.class)
+@PerActivity
+@Component(dependencies = AppComponent.class, modules = LoginPresenterModule.class)
 public interface LoginComponent extends InjectComponent<LoginActivity> {
 }

@@ -7,19 +7,19 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
 
-import static com.example.zhiyicx.justdodagger2.base.dagger.app.AppConfig.USER_LOGIN;
+import static com.example.zhiyicx.justdodagger2.base.dagger.app.AppConfig.USER_REGISTER;
 
 /**
  * @Describe
  * @Author zhouhao
- * @Date 2017/9/2
+ * @Date 2017/9/5
  * @Contact 605626708@qq.com
  */
 
-public interface LoginClient {
+public interface RegisterClient {
 
+    @POST(USER_REGISTER)
     @FormUrlEncoded
-    @POST(USER_LOGIN)
-    Observable<BaseBean> login(@Field("user") String name,
-                               @Field("pwd") String pwd);
+    Observable<BaseBean> register(@Field("user") String user,
+                                  @Field("pwd") String pwd);
 }

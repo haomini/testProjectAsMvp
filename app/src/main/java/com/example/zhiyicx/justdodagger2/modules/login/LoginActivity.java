@@ -1,6 +1,7 @@
 package com.example.zhiyicx.justdodagger2.modules.login;
 
 import com.example.zhiyicx.justdodagger2.base.BaseActivity;
+import com.example.zhiyicx.justdodagger2.base.BaseApplication;
 
 /**
  * @Describe
@@ -19,6 +20,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginFragment> {
     protected void daggerForm() {
         DaggerLoginComponent
                 .builder()
+                .appComponent(BaseApplication.AppComponentHolder.getAppComponent())
                 .loginPresenterModule(new LoginPresenterModule(mFragment))
                 .build()
                 .inject(this);

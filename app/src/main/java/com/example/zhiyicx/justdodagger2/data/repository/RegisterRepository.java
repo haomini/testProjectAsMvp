@@ -1,7 +1,8 @@
 package com.example.zhiyicx.justdodagger2.data.repository;
 
 import com.example.zhiyicx.justdodagger2.base.BaseBean;
-import com.example.zhiyicx.justdodagger2.data.sql.UserManager;
+import com.example.zhiyicx.justdodagger2.data.remote.RegisterClient;
+import com.example.zhiyicx.justdodagger2.data.remote.ServiceManager;
 import com.example.zhiyicx.justdodagger2.modules.register.IRegisterRepository;
 
 import javax.inject.Inject;
@@ -17,13 +18,17 @@ import rx.Observable;
 
 public class RegisterRepository implements IRegisterRepository {
 
+    private final RegisterClient mClient;
+
     @Inject
-    public RegisterRepository() {
+    public RegisterRepository(ServiceManager sManager) {
+        this.mClient = sManager.getRegisterClient();
     }
 
     @Override
     public Observable<BaseBean> register(String userName, String pwd) {
-        return Observable
-                .just(UserManager.getInstance().insertUser(userName, pwd));
+//        return Observable
+//                .just(UserManager.getInstance().insertUser(userName, pwd));
+        return mClient.register(userName, pwd);
     }
 }

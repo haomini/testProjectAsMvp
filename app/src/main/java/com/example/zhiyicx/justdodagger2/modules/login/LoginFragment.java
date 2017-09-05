@@ -71,7 +71,6 @@ public class LoginFragment extends BaseFragment<LoginConstract.Presenter> implem
                 .compose(this.bindToLifecycle())
                 .subscribe(aVoid -> {
                     startActivity(new Intent(getActivity(), RegisterActivity.class));
-                    getActivity().finish();
                 });
     }
 
@@ -106,7 +105,10 @@ public class LoginFragment extends BaseFragment<LoginConstract.Presenter> implem
         showSnackSuccessMessage("登陆成功");
         Observable.timer(200, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> startActivity(new Intent(getActivity(), HomeActivity.class)));
+                .subscribe(aLong -> {
+                    startActivity(new Intent(getActivity(), HomeActivity.class));
+                    getActivity().finish();
+                });
 
     }
 
