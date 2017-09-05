@@ -1,5 +1,7 @@
 package com.example.zhiyicx.justdodagger2.data.bean;
 
+import android.support.annotation.DrawableRes;
+
 /**
  * @Describe
  * @Author zhouhao
@@ -10,6 +12,16 @@ package com.example.zhiyicx.justdodagger2.data.bean;
 public class ReadBean {
     private String name;
     private String path;
+    @DrawableRes
+    private int res;
+
+    public int getRes() {
+        return res;
+    }
+
+    public void setRes(int res) {
+        this.res = res;
+    }
 
     public String getName() {
         return name;

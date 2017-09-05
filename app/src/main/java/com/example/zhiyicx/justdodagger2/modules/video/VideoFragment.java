@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.zhiyicx.justdodagger2.R;
+import com.example.zhiyicx.justdodagger2.base.BaseApplication;
 import com.example.zhiyicx.justdodagger2.base.BaseFragment;
 import com.example.zhiyicx.justdodagger2.data.bean.Video;
 import com.example.zhiyicx.justdodagger2.modules.video.adapter.RecyclerNormalAdapter;
@@ -14,7 +15,10 @@ import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -25,7 +29,7 @@ import butterknife.BindView;
  * @Contact 605626708@qq.com
  */
 
-public class VideoFragment extends BaseFragment {
+public class VideoFragment extends BaseFragment<VideoContract.Presenter> implements VideoContract.View {
     @BindView(R.id.recycler_video)
     RecyclerView recyclerVideo;
     private LinearLayoutManager linearLayoutManager;
@@ -33,11 +37,21 @@ public class VideoFragment extends BaseFragment {
     private RecyclerNormalAdapter recyclerNormalAdapter;
     private List<Video> mDatas;
 
+    @Inject
+    VideoPresenter mVideoPresenter;
+
     @Override
     protected void initView() {
 
+        DaggerVideoComponent
+                .builder()
+                .appComponent(BaseApplication.AppComponentHolder.getAppComponent())
+                .videoPresenterModule(new VideoPresenterModule(this))
+                .build()
+                .inject(this);
+
         recyclerVideo.setAdapter(recyclerNormalAdapter = new RecyclerNormalAdapter(getContext(),
-                mDatas = VideoFactory.getVideos(9)));
+                mDatas = new ArrayList<>()));
         recyclerVideo.setLayoutManager(linearLayoutManager = new LinearLayoutManager(getContext()));
         recyclerVideo.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -73,7 +87,7 @@ public class VideoFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
+        mPresenter.getVideoList();
     }
 
     @Override
@@ -127,5 +141,10 @@ public class VideoFragment extends BaseFragment {
     @Override
     protected CharSequence setCenterTitle() {
         return "视频吧";
+    }
+
+    @Override
+    public void refreshDate(List<Video> list) {
+        recyclerNormalAdapter.setListData(list);
     }
 }

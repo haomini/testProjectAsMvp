@@ -17,4 +17,7 @@ public class AppConfig {
 
     // 用户相关 - 注册
     public static final String USER_REGISTER = "Register";
+
+    // 数据相关 - 视频
+    public static final String VIDEO = "Video";
 }

@@ -15,25 +15,31 @@ import javax.inject.Singleton;
 public class ServiceManager {
     private LoginClient mLoginClient;
     private RegisterClient mRegisterClient;
+    private VideoClient mVideoClient;
 
     /**
      * 如果需要添加 service 只需在构造方法中添加对应的 service,在提供 get 方法返回出去,只要在 ServiceModule 提供了该 service
      * Dagger2 会自行注入
-     *
      */
     @Inject
     public ServiceManager(LoginClient loginClient,
-                          RegisterClient registerClient) {
+                          RegisterClient registerClient,
+                          VideoClient videoClient) {
         this.mLoginClient = loginClient;
         this.mRegisterClient = registerClient;
+        this.mVideoClient = videoClient;
     }
 
     public LoginClient getLoginClient() {
         return mLoginClient;
     }
 
-    public RegisterClient getRegisterClient(){
+    public RegisterClient getRegisterClient() {
         return mRegisterClient;
+    }
+
+    public VideoClient getVideoClient() {
+        return mVideoClient;
     }
 
 }

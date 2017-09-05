@@ -1,6 +1,7 @@
 package com.example.zhiyicx.justdodagger2.modules.read.detail;
 
 import android.os.Bundle;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -35,6 +36,11 @@ public class ReadDetailFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+
+        WebSettings settings = web.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+
         web.loadUrl(text);
         web.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

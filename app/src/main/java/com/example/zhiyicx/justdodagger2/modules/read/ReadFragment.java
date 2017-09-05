@@ -46,15 +46,6 @@ public class ReadFragment extends BaseFragment {
 
     public List<ReadBean> getReadBean() {
         List<ReadBean> list = new ArrayList<>();
-        ReadBean bean0 = new ReadBean();
-        bean0.setName("跟我一起学，WebView");
-        bean0.setPath("http://blog.csdn.net/abc5382334/article/details/23934101");
-        list.add(bean0);
-
-        ReadBean bean1 = new ReadBean();
-        bean1.setName("百度一下");
-        bean1.setPath("http://www.baidu.com");
-        list.add(bean1);
 
         ReadBean bean2 = new ReadBean();
         bean2.setName("更我一起学系列{2}");

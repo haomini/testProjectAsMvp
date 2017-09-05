@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MySnackBar</string>
+    <string name="app_name">WakeBoarding</string>
     <string name="error_for_net">网络连接失败, 发生了什么呢???</string>
 
     <string name="login_success">登陆成功</string>
