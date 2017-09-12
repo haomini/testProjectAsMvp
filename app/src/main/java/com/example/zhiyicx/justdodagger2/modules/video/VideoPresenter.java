@@ -23,7 +23,7 @@ public class VideoPresenter extends BasePresenter<IVideoRepository, VideoContrac
     }
 
     @Override
-    public void getVideoList() {
+    public void requestNetData(int page, boolean isLoadMore) {
         mRepository.getVideoList()
                 .compose(mTransformer)
                 .subscribe(new BaseSubscriber<List<Video>>() {
@@ -35,7 +35,7 @@ public class VideoPresenter extends BasePresenter<IVideoRepository, VideoContrac
                     @Override
                     protected void onSuccess(List<Video> videos) {
                         mRootView.showSnackSuccessMessage("更新成功");
-                        mRootView.refreshDate(videos);
+                        mRootView.requestNetSuccess(videos, isLoadMore);
                     }
                 });
     }

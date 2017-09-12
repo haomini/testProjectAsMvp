@@ -14,6 +14,15 @@ public class BaseBean<T> implements Serializable {
     private String reason;
     private T result;
 
+    public BaseBean(int status, String reason, T result) {
+        this.status = status;
+        this.reason = reason;
+        this.result = result;
+    }
+
+    public BaseBean() {
+    }
+
     public int getStatus() {
         return status;
     }

@@ -23,9 +23,8 @@ import com.example.zhiyicx.justdodagger2.base.i.IBaseView;
 import com.example.zhiyicx.justdodagger2.utils.DeviceUtils;
 import com.example.zhiyicx.justdodagger2.utils.StatusBarUtils;
 import com.example.zhiyicx.justdodagger2.utils.UIUtils;
+import com.example.zhiyicx.justdodagger2.widget.linear.SoftInputLinearLayout;
 import com.jakewharton.rxbinding.view.RxView;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
@@ -33,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 import skin.support.widget.SkinCompatToolbar;
 
 import static com.example.zhiyicx.justdodagger2.base.config.ConstantConfig.JITTER_SPACING_TIME;
@@ -53,20 +53,18 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
     private static final int DEFAULT_DIVIDER_COLOR = R.color.general_for_line;// 默认的toolbar下方分割线颜色
     @DrawableRes
     private static final int DEFAULT_TOOLBAR_LEFT_IMG = R.mipmap.topbar_back;// 默认的toolbar左边的图片，一般是返回键
-    @LayoutRes
-    private static final int DEFAULT_HEADER = R.layout.full_scroll_header; //默认的header
 
-    private Unbinder mUnBinder;
-    protected View mDocerView;
-    protected RxPermissions mRxPermissions;
-    protected P mPresenter;
-    protected SkinCompatToolbar mToolbar;
-    protected View mHeader;
-
-    private TextView mToolbarLeft, mToolbarRight, mToolbarCenter;
-    private ImageView mIvRefresh;
-    private View mStatusPlaceholderView;
-    private boolean mIscUseSatusbar;
+    private Unbinder mUnBinder;             // butterKnife解绑器
+    protected View mDocerView;              // FragmentView
+    protected RxPermissions mRxPermissions; // RxPermissions
+    protected P mPresenter;                 // presenter
+    protected SkinCompatToolbar mToolbar;   // 可定制toolbar
+    private TextView mToolbarLeft,          // toolbar左边
+            mToolbarRight,                  // toolbar右边
+            mToolbarCenter;                 // toolbar中间
+    private ImageView mIvRefresh;           // toolbar旋转等待
+    private View mStatusPlaceholderView;    // 顶替状态栏的bar
+    private boolean mIscUseSatusbar;        // 是否使用顶替状态栏/透明
 
     @Nullable
     @Override
@@ -83,64 +81,61 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
     }
 
     private View getContentView(LayoutInflater inflater) {
-        LinearLayout linearLayout = new LinearLayout(getContext());
-        linearLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout rootLinear;
+        if (isLastFragment()) {
+            rootLinear = new SoftInputLinearLayout(getContext());
+            rootLinear.setFitsSystemWindows(true);
+        } else {
+            rootLinear = new LinearLayout(getContext());
+        }
+        rootLinear.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        rootLinear.setOrientation(LinearLayout.VERTICAL);
         if (setUseStatusBar() && setUseStatusView()) { // 是否添加和状态栏等高的占位 View
             mStatusPlaceholderView = new View(getContext());
             mStatusPlaceholderView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DeviceUtils.getStatuBarHeight(getContext())));
-            if (StatusBarUtils.intgetType(getActivity().getWindow()) == 0 && ContextCompat.getColor(getContext(), setToolBarBackgroud()) == Color.WHITE) {
+            if (StatusBarUtils.intgetType(getActivity().getWindow()) == 0 && ContextCompat.getColor(getContext(), getToolBarBackground()) == Color.WHITE) {
                 mStatusPlaceholderView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.themeColor));
             } else {
-                mStatusPlaceholderView.setBackgroundColor(ContextCompat.getColor(getContext(), setToolBarBackgroud()));
+                mStatusPlaceholderView.setBackgroundColor(ContextCompat.getColor(getContext(), getToolBarBackground()));
             }
-            linearLayout.addView(mStatusPlaceholderView);
+            rootLinear.addView(mStatusPlaceholderView);
         }
         if (useToolbar()) {
             mToolbar = (SkinCompatToolbar) inflater.inflate(getToolbarLayout(), null);
             initDefaultToolBar(mToolbar);
-            linearLayout.addView(mToolbar);
+            rootLinear.addView(mToolbar);
         }
         if (setUseStatusBar()) {
             // 状态栏顶上去
             StatusBarUtils.transparencyBar(getActivity());
-            linearLayout.setFitsSystemWindows(false);
         } else {
             // 状态栏不顶上去
-            StatusBarUtils.setStatusBarColor(getActivity(), setToolBarBackgroud());
-            linearLayout.setFitsSystemWindows(true);
+            StatusBarUtils.setStatusBarColor(getActivity(), getToolBarBackground());
         }
         if (useToolbarDivider()) {
             View divider = new View(getContext());
             divider.setBackgroundResource(DEFAULT_DIVIDER_COLOR);
             divider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     getResources().getDimensionPixelSize(R.dimen.divider_len)));
-            linearLayout.addView(divider);
+            rootLinear.addView(divider);
         }
         setToolBarTextColor();
         // 是否设置状态栏文字图标灰色，对 小米、魅族、Android 6.0 及以上系统有效
         if (setStatusbarGrey()) {
             StatusBarUtils.statusBarLightMode(getActivity());
         }
-        View contentView = inflater.inflate(getBodyLayout(), null);
-        contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        SmartRefreshLayout smartRefreshLayout = new SmartRefreshLayout(getActivity());
-        smartRefreshLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        // 添加默认的头, 为了模仿支付宝..o.o
-        if (useHeader() && getHeaderLayout() != 0x0) {
-            mHeader = inflater.inflate(getHeaderLayout(), null);
-            if (getHeaderLayout() == DEFAULT_HEADER) {
-                mHeader.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDisplayMetrics().heightPixels));
-            }
-            smartRefreshLayout.addView(mHeader);
-        }
-        smartRefreshLayout.addView(contentView);
-        if (useFooter() && getFooterView() != null) {
-            smartRefreshLayout.addView(getFooterView());
+
+        // 添加内容体
+        View bodyView = inflater.inflate(getBodyLayout(), null);
+        if (useOverScroll()) {
+            OverScrollDecoratorHelper.setUpStaticOverScroll(bodyView,
+                    OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
         }
 
-        linearLayout.addView(smartRefreshLayout);
-        return linearLayout;
+        rootLinear.addView(bodyView, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        return rootLinear;
     }
 
     /**
@@ -149,9 +144,7 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
      * @return 默认不可用
      */
     protected boolean setUseStatusBar() {
-        if (!this.getActivity().getClass().getSimpleName().contains("HomeActivity")) {
-            mIscUseSatusbar = Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-        }
+        mIscUseSatusbar = /*Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && */Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
         return mIscUseSatusbar;
     }
 
@@ -161,11 +154,7 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
      * @return
      */
     protected boolean setUseStatusView() {
-        boolean userStatusView = false;
-        if (!this.getActivity().getClass().getSimpleName().contains("HomeActivity")) {
-            userStatusView = Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-        }
-        return userStatusView;
+        return mIscUseSatusbar;
     }
 
     /**
@@ -173,7 +162,7 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
      */
     protected void setToolBarTextColor() {
         // 如果toolbar背景是白色的，就将文字颜色设置成黑色
-        if (useToolbar() && ContextCompat.getColor(getContext(), setToolBarBackgroud()) == Color.WHITE) {
+        if (useToolbar() && ContextCompat.getColor(getContext(), getToolBarBackground()) == Color.WHITE) {
             mToolbarCenter.setTextColor(ContextCompat.getColor(getContext(), R.color.important_for_content));
             mToolbarRight.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.selector_text_color));
             mToolbarLeft.setTextColor(ContextCompat.getColor(getContext(), R.color.important_for_content));
@@ -184,7 +173,7 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
      * 初始化toolbar布局,如果进行了自定义toolbar布局，就应该重写该方法
      */
     protected void initDefaultToolBar(View toolBarContainer) {
-        toolBarContainer.setBackgroundResource(setToolBarBackgroud());
+        toolBarContainer.setBackgroundResource(getToolBarBackground());
         mToolbarLeft = (TextView) toolBarContainer.findViewById(R.id.tv_toolbar_left);
         mToolbarRight = (TextView) toolBarContainer.findViewById(R.id.tv_toolbar_right);
         mToolbarCenter = (TextView) toolBarContainer.findViewById(R.id.tv_toolbar_center);
@@ -326,25 +315,12 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
     }
 
     @LayoutRes
-    protected int getHeaderLayout() {
-        return DEFAULT_HEADER;
-    }
-
-    protected boolean useHeader() {
-        return true;
-    }
-
-    protected boolean useFooter() {
-        return false;
-    }
-
-    protected View getFooterView() {
-        return new ClassicsFooter(getActivity());
-    }
-
-    @LayoutRes
     protected int getToolbarLayout() {
         return DEFAULT_TOOLBAR;
+    }
+
+    protected int getToolBarBackground() {
+        return DEFAULT_TOOLBAR_BACKGROUD_COLOR;
     }
 
     protected boolean useToolbar() {
@@ -359,9 +335,10 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
         return false;
     }
 
-    protected int setToolBarBackgroud() {
-        return DEFAULT_TOOLBAR_BACKGROUD_COLOR;
+    protected boolean useOverScroll() {
+        return true;
     }
+
 
     protected void showWhenSnackDismissed() {
 
@@ -376,4 +353,7 @@ public abstract class BaseFragment<P extends IBasePresenter> extends RxFragment 
     public void hideLoading() {
 
     }
+
+    // 使得仅存在一个SoftInputLinearLayout
+    protected abstract boolean isLastFragment();
 }

@@ -5,6 +5,7 @@ import com.example.zhiyicx.justdodagger2.data.bean.Video;
 import com.example.zhiyicx.justdodagger2.data.remote.ServiceManager;
 import com.example.zhiyicx.justdodagger2.data.remote.VideoClient;
 import com.example.zhiyicx.justdodagger2.modules.video.IVideoRepository;
+import com.example.zhiyicx.justdodagger2.modules.video.VideoFactory;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class VideoRepository implements IVideoRepository {
 
     @Override
     public Observable<BaseBean<List<Video>>> getVideoList() {
-        return mClient.getVideoList();
+//        return mClient.getVideoList();
+        return Observable.just(new BaseBean<>(0, "request ok", VideoFactory.getVideos(10)));
     }
 }

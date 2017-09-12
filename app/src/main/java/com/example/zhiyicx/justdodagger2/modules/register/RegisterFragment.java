@@ -103,6 +103,11 @@ public class RegisterFragment extends BaseFragment<RegisterConstract.Presenter> 
     }
 
     @Override
+    protected boolean isLastFragment() {
+        return true;
+    }
+
+    @Override
     public void showSnackErrorMessage(CharSequence s) {
         tvErrorTip.setText(s);
     }

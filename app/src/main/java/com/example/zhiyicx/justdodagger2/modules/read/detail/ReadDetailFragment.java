@@ -55,6 +55,11 @@ public class ReadDetailFragment extends BaseFragment {
         return R.layout.fragment_read_detail;
     }
 
+    @Override
+    protected boolean isLastFragment() {
+        return true;
+    }
+
 
     public void onBackPressed(){
         if(web.canGoBack()){

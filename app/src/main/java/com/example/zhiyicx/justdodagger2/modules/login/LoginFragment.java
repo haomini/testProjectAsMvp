@@ -101,6 +101,11 @@ public class LoginFragment extends BaseFragment<LoginConstract.Presenter> implem
     }
 
     @Override
+    protected boolean isLastFragment() {
+        return true;
+    }
+
+    @Override
     public void loginSuccess() {
         showSnackSuccessMessage("登陆成功");
         Observable.timer(200, TimeUnit.MILLISECONDS)

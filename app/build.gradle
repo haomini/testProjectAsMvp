@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     compileSdkVersion 25
@@ -11,6 +12,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -22,6 +25,12 @@ android {
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
+    }
+
+    dexOptions {
+        dexInProcess true
+        preDexLibraries true
+        javaMaxHeapSize "6g"//越大越好
     }
 }
 
@@ -46,6 +55,9 @@ dependencies {
     //support
     compile support.appcompatV7
     compile support.cardview
+
+    //分包
+    compile dataDependencies.multidex
 
     //dagger
     compile dataDependencies.dagger
@@ -89,9 +101,15 @@ dependencies {
     compile dataDependencies.skinDesign
     compile dataDependencies.skinCardveiw
 
+    // database
+    compile dataDependencies.greendao
+    compile dataDependencies.greendaoGenerator
+    compile dataDependencies.greendaoSqlcipher
+
     //smart_refresh
     compile dataDependencies.smart_layout
     compile dataDependencies.smart_header
     testCompile 'junit:junit:4.12'
     compile project(path: ':baseadapter-recyclerview')
+    compile project(path: ':liboverscroll')
 }

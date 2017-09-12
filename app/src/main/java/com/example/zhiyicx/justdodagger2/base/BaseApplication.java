@@ -1,6 +1,8 @@
 package com.example.zhiyicx.justdodagger2.base;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.example.zhiyicx.justdodagger2.base.dagger.app.AppComponent;
 import com.example.zhiyicx.justdodagger2.base.dagger.app.DaggerAppComponent;
@@ -63,5 +65,11 @@ public class BaseApplication extends Application {
         public static void setAppComponent(AppComponent appComponent) {
             mAppComponent = appComponent;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

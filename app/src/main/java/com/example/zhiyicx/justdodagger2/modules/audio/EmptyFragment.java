@@ -48,6 +48,11 @@ public class EmptyFragment extends BaseFragment {
     }
 
     @Override
+    protected boolean isLastFragment() {
+        return true;
+    }
+
+    @Override
     protected CharSequence setCenterTitle() {
         return "发现吧";
     }

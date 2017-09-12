@@ -1,10 +1,8 @@
 package com.example.zhiyicx.justdodagger2.modules.video;
 
-import com.example.zhiyicx.justdodagger2.base.i.IBasePresenter;
-import com.example.zhiyicx.justdodagger2.base.i.IBaseView;
+import com.example.zhiyicx.justdodagger2.base.i.IBaseListPresenter;
+import com.example.zhiyicx.justdodagger2.base.i.IBaseListView;
 import com.example.zhiyicx.justdodagger2.data.bean.Video;
-
-import java.util.List;
 
 /**
  * @Describe
@@ -14,11 +12,9 @@ import java.util.List;
  */
 
 public interface VideoContract {
-    interface View extends IBaseView<Presenter> {
-        void refreshDate(List<Video> list);
+    interface View extends IBaseListView<Presenter, Video> {
     }
 
-    interface Presenter extends IBasePresenter {
-        void getVideoList();
+    interface Presenter extends IBaseListPresenter {
     }
 }

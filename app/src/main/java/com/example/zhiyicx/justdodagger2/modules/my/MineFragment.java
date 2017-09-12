@@ -27,6 +27,11 @@ public class MineFragment extends BaseFragment {
     }
 
     @Override
+    protected boolean isLastFragment() {
+        return true;
+    }
+
+    @Override
     protected CharSequence setCenterTitle() {
         return "我的";
     }

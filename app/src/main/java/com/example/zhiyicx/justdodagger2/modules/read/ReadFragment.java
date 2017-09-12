@@ -44,6 +44,11 @@ public class ReadFragment extends BaseFragment {
         return R.layout.fragment_read;
     }
 
+    @Override
+    protected boolean isLastFragment() {
+        return true;
+    }
+
     public List<ReadBean> getReadBean() {
         List<ReadBean> list = new ArrayList<>();
 

@@ -5,9 +5,8 @@ import android.content.res.Configuration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.zhiyicx.justdodagger2.R;
 import com.example.zhiyicx.justdodagger2.base.BaseApplication;
-import com.example.zhiyicx.justdodagger2.base.BaseFragment;
+import com.example.zhiyicx.justdodagger2.base.BaseListFragment;
 import com.example.zhiyicx.justdodagger2.data.bean.Video;
 import com.example.zhiyicx.justdodagger2.modules.video.adapter.RecyclerNormalAdapter;
 import com.example.zhiyicx.justdodagger2.modules.video.holder.RecyclerItemNormalHolder;
@@ -15,12 +14,7 @@ import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
-
-import butterknife.BindView;
 
 /**
  * @Describe
@@ -29,13 +23,8 @@ import butterknife.BindView;
  * @Contact 605626708@qq.com
  */
 
-public class VideoFragment extends BaseFragment<VideoContract.Presenter> implements VideoContract.View {
-    @BindView(R.id.recycler_video)
-    RecyclerView recyclerVideo;
-    private LinearLayoutManager linearLayoutManager;
+public class VideoFragment extends BaseListFragment<VideoContract.Presenter, Video> implements VideoContract.View {
     private boolean mFull;
-    private RecyclerNormalAdapter recyclerNormalAdapter;
-    private List<Video> mDatas;
 
     @Inject
     VideoPresenter mVideoPresenter;
@@ -50,10 +39,7 @@ public class VideoFragment extends BaseFragment<VideoContract.Presenter> impleme
                 .build()
                 .inject(this);
 
-        recyclerVideo.setAdapter(recyclerNormalAdapter = new RecyclerNormalAdapter(getContext(),
-                mDatas = new ArrayList<>()));
-        recyclerVideo.setLayoutManager(linearLayoutManager = new LinearLayoutManager(getContext()));
-        recyclerVideo.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             int firstVisibleItem, lastVisibleItem;
 
@@ -65,8 +51,8 @@ public class VideoFragment extends BaseFragment<VideoContract.Presenter> impleme
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+                firstVisibleItem = ((LinearLayoutManager) mLayoutManager).findFirstVisibleItemPosition();
+                lastVisibleItem = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();
                 //大于0说明有播放
                 if (GSYVideoManager.instance().getPlayPosition() >= 0) {
                     //当前播放的位置
@@ -77,7 +63,7 @@ public class VideoFragment extends BaseFragment<VideoContract.Presenter> impleme
                         //如果滑出去了上面和下面就是否，和今日头条一样
                         if (!mFull) {
                             GSYVideoPlayer.releaseAllVideos();
-                            recyclerNormalAdapter.notifyDataSetChanged();
+                            mAdapter.notifyDataSetChanged();
                         }
                     }
                 }
@@ -86,19 +72,19 @@ public class VideoFragment extends BaseFragment<VideoContract.Presenter> impleme
     }
 
     @Override
-    protected void initData() {
-        mPresenter.getVideoList();
-    }
-
-    @Override
-    protected int getBodyLayout() {
-        return R.layout.fragment_video;
+    protected RecyclerView.Adapter getAdapter() {
+        return new RecyclerNormalAdapter(getContext(), mList);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         GSYVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    protected boolean isLastFragment() {
+        return true;
     }
 
     public boolean onBackPressed() {
@@ -141,10 +127,5 @@ public class VideoFragment extends BaseFragment<VideoContract.Presenter> impleme
     @Override
     protected CharSequence setCenterTitle() {
         return "视频吧";
-    }
-
-    @Override
-    public void refreshDate(List<Video> list) {
-        recyclerNormalAdapter.setListData(list);
     }
 }

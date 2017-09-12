@@ -110,8 +110,9 @@ ext {
             gsy_arm64                    : "com.shuyu:gsyVideoPlayer-arm64:${gsyVersion}",
             
             smart_layout                 : "com.scwang.smartrefresh:SmartRefreshLayout:${smartVersion}",
-            smart_header                 : "com.scwang.smartrefresh:SmartRefreshHeader:${smartVersion}"//没有使用特殊Header，可以不加这行
+            smart_header                 : "com.scwang.smartrefresh:SmartRefreshHeader:${smartVersion}",//没有使用特殊Header，可以不加这行
     ]
+
     sdksoupportDependencies = [
             appcompatV7     : "com.android.support:appcompat-v7:${androidSupportSdkVersion}",
             paletteV7       : "com.android.support:palette-v7:${androidSupportSdkVersion}",

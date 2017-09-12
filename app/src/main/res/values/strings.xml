@@ -4,4 +4,5 @@
 
     <string name="login_success">登陆成功</string>
     <string name="register_error">注册成功</string>
+    <string name="no_more_data">没有更多数据了</string>
 </resources>

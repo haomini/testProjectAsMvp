@@ -69,6 +69,11 @@ public class MainFragment extends BaseFragment<Contract.Presenter> implements Co
     }
 
     @Override
+    protected boolean isLastFragment() {
+        return false;
+    }
+
+    @Override
     protected CharSequence setCenterTitle() {
         return "我愛你";
     }
