@@ -2,11 +2,14 @@ package com.example.zhiyicx.justdodagger2.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.multidex.MultiDex;
 
 import com.example.zhiyicx.justdodagger2.base.dagger.app.AppComponent;
 import com.example.zhiyicx.justdodagger2.base.dagger.app.DaggerAppComponent;
 import com.example.zhiyicx.justdodagger2.base.dagger.app.HttpClientModule;
+import com.example.zhiyicx.justdodagger2.data.bean.DaoMaster;
+import com.example.zhiyicx.justdodagger2.data.bean.DaoSession;
 
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
@@ -23,12 +26,23 @@ public class BaseApplication extends Application {
 
     private static BaseApplication application;
 
+    public static final String DBName = "wake.db";
+    private static DaoSession mDaoSession;
+
     @Override
     public void onCreate() {
         application = this;
         super.onCreate();
         initSkin();
         initAppComponent();
+        initDb();
+    }
+
+    private void initDb() {
+        DaoMaster.DevOpenHelper helper  = new DaoMaster.DevOpenHelper(this, DBName);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(db);
+        mDaoSession = daoMaster.newSession();
     }
 
     protected void initSkin() {
@@ -71,5 +85,9 @@ public class BaseApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    public static DaoSession getDaoSession(){
+        return mDaoSession;
     }
 }

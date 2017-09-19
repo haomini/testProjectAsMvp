@@ -32,13 +32,23 @@ ext {
     clickSpanLinkVersion = '1.5.2'
 
     //conflict package
-    guavaVwesion = '19.0'
+    guavaVwesion = '18.0'
 
     //gsy version
     gsyVersion = '2.0.5'
 
     //smart version
     smartVersion = '1.0.3'
+
+    //for test
+    robolectricVersion = '3.1.4'
+    jUnitVersion = '4.12'
+    assertJVersion = '1.7.1'
+    mockitoVersion = '1.9.5'
+    dexmakerVersion = '1.1'
+    dexmakerVersion = '1.0'
+    espressoVersion = '2.2.2'
+    runnerVersion = '0.5'
 
     dataDependencies = [
             // dex分包
@@ -125,6 +135,13 @@ ext {
             // 7.0 Permission
             rxpermissions   : "com.tbruyelle.rxpermissions:rxpermissions:0.9.2@aar",
             constraintLayout: 'com.android.support.constraint:constraint-layout:1.0.2'
+    ]
+
+    testDependencies = [
+            junit               : "junit:junit:${jUnitVersion}",
+            androidJUnitRunner  : "android.support.test.runner.AndroidJUnitRunner",
+            multidexTest        : "org.robolectric:shadows-multidex:${robolectricVersion}",
+            runner              : "com.android.support.test:runner:${runnerVersion}"
     ]
 
 }

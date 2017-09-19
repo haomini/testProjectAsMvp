@@ -18,7 +18,8 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {HttpClientModule.class, ServiceModule.class})
+@Component(modules = {HttpClientModule.class, ServiceModule.class,
+        GreenDaoModule.class, SingleDaoModule.class})
 public interface AppComponent extends InjectComponent<Application>{
 
     //服务管理器,retrofitApi
