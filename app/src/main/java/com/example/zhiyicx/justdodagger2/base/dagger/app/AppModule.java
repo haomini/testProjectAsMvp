@@ -1,6 +1,6 @@
 package com.example.zhiyicx.justdodagger2.base.dagger.app;
 
-import android.app.Application;
+import com.example.zhiyicx.justdodagger2.base.BaseApplication;
 
 import javax.inject.Singleton;
 
@@ -16,15 +16,15 @@ import dagger.Provides;
 
 @Module
 public class AppModule {
-    private Application mApplication;
+    private BaseApplication mApplication;
 
-    public AppModule(Application application) {
+    public AppModule(BaseApplication application) {
         this.mApplication = application;
     }
 
     @Singleton
     @Provides
-    public Application provideApplication() {
+    public BaseApplication provideApplication() {
         return mApplication;
     }
 

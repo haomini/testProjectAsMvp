@@ -2,10 +2,12 @@ package com.example.zhiyicx.justdodagger2;
 
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.zhiyicx.justdodagger2.base.BaseFragment;
 import com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText;
 import com.example.zhiyicx.justdodagger2.widget.edittext.EditTextAddWrapper;
+import com.example.zhiyicx.justdodagger2.widget.linear.TagLinearLayout;
 import com.jakewharton.rxbinding.view.RxView;
 
 import butterknife.BindView;
@@ -26,6 +28,10 @@ public class MainFragment extends BaseFragment<Contract.Presenter> implements Co
     Button show2;
     @BindView(R.id.del)
     DeleteEditText del;
+    @BindView(R.id.vvvvv)
+    TagLinearLayout mTagLinearLayout;
+
+
 
     private EditTextAddWrapper<DeleteEditText> wrapper;
 
@@ -34,19 +40,21 @@ public class MainFragment extends BaseFragment<Contract.Presenter> implements Co
 
         RxView.clicks(show)
                 .compose(this.bindToLifecycle())
-                .subscribe(aVoid -> mPresenter.ibpToast());
+                .subscribe(aVoid -> mPresenter.doA());
 
         RxView.clicks(show2)
                 .compose(this.bindToLifecycle())
                 .subscribe(aVoid -> showSnackSuccessMessage(wrapper.getText()));
+
+        mTagLinearLayout.setTextSize(17);
+        mTagLinearLayout.setArrays("你试试", "nishishi",/* "try only", "NISH", "你看看嫩遂宁市",*/ "不一样的吗");
+        mTagLinearLayout.setTagClickedListener((v, position) -> showSnackSuccessMessage(((TextView) v).getText()));
     }
 
     @Override
     protected void initData() {
         mPresenter.doA();
-
-        wrapper = new EditTextAddWrapper<>(del, " ", 5, 5);
-        wrapper.setText("19213412312");
+        wrapper = new EditTextAddWrapper(del, "123", 3, 4);
     }
 
     public void doShowSnack() {
@@ -75,7 +83,7 @@ public class MainFragment extends BaseFragment<Contract.Presenter> implements Co
 
     @Override
     protected CharSequence setCenterTitle() {
-        return "我愛你";
+        return "真水狗儿";
     }
 
     @OnClick(R.id.kankan)

@@ -11,6 +11,7 @@ import com.example.zhiyicx.justdodagger2.base.BaseApplication;
  */
 
 public class LoginActivity extends BaseActivity<LoginPresenter, LoginFragment> {
+
     @Override
     protected LoginFragment getFragment() {
         return new LoginFragment();

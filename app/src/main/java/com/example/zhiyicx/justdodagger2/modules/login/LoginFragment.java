@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.example.zhiyicx.justdodagger2.R;
 import com.example.zhiyicx.justdodagger2.base.BaseFragment;
 import com.example.zhiyicx.justdodagger2.base.config.ConstantConfig;
+import com.example.zhiyicx.justdodagger2.data.bean.SingleDaoManager;
 import com.example.zhiyicx.justdodagger2.modules.home.HomeActivity;
 import com.example.zhiyicx.justdodagger2.modules.register.RegisterActivity;
 import com.example.zhiyicx.justdodagger2.widget.button.LoadingButton;
@@ -16,6 +17,8 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import rx.Observable;
@@ -39,6 +42,9 @@ public class LoginFragment extends BaseFragment<LoginConstract.Presenter> implem
     TextView tvErrorTip;
     @BindView(R.id.register)
     TextView mRegister;
+
+    @Inject
+    SingleDaoManager mSingleDaoManager;
 
     @Override
     protected void initView() {
@@ -76,6 +82,7 @@ public class LoginFragment extends BaseFragment<LoginConstract.Presenter> implem
 
     @Override
     protected void initData() {
+        mSingleDaoManager.getVideoEntryDao().getAllColumns();
     }
 
     @Override

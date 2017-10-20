@@ -76,4 +76,8 @@
         <item name="android:layout_height">@dimen/divider_line</item>
         <item name="android:background">@color/general_for_line_light</item>
     </style>
+
+    <style name="material_text">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
 </resources>

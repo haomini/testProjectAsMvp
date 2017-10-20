@@ -6,10 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.multidex.MultiDex;
 
 import com.example.zhiyicx.justdodagger2.base.dagger.app.AppComponent;
+import com.example.zhiyicx.justdodagger2.base.dagger.app.AppModule;
 import com.example.zhiyicx.justdodagger2.base.dagger.app.DaggerAppComponent;
+import com.example.zhiyicx.justdodagger2.base.dagger.app.GreenDaoModule;
 import com.example.zhiyicx.justdodagger2.base.dagger.app.HttpClientModule;
+import com.example.zhiyicx.justdodagger2.base.dagger.app.SingleDaoModule;
 import com.example.zhiyicx.justdodagger2.data.bean.DaoMaster;
 import com.example.zhiyicx.justdodagger2.data.bean.DaoSession;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinCardViewInflater;
@@ -36,6 +40,11 @@ public class BaseApplication extends Application {
         initSkin();
         initAppComponent();
         initDb();
+        initBugly();
+    }
+
+    private void initBugly() {
+        CrashReport.initCrashReport(getApplicationContext(), "f51386d25d", true);
     }
 
     private void initDb() {
@@ -60,8 +69,11 @@ public class BaseApplication extends Application {
 
     public void initAppComponent() {
         AppComponent mAppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
                 .httpClientModule(new HttpClientModule())
                 .serviceModule(new ServiceModule())
+                .greenDaoModule(new GreenDaoModule())
+                .singleDaoModule(new SingleDaoModule())
                 .build();
 
         AppComponentHolder.setAppComponent(mAppComponent);

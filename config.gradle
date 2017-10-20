@@ -44,7 +44,7 @@ ext {
     robolectricVersion = '3.1.4'
     jUnitVersion = '4.12'
     assertJVersion = '1.7.1'
-    mockitoVersion = '1.9.5'
+    mockitoVersion = '1.10.19'
     dexmakerVersion = '1.1'
     dexmakerVersion = '1.0'
     espressoVersion = '2.2.2'
@@ -118,7 +118,7 @@ ext {
             gsy_armv5                    : "com.shuyu:gsyVideoPlayer-armv5:${gsyVersion}",
             gsy_armv7a                   : "com.shuyu:gsyVideoPlayer-armv7a:${gsyVersion}",
             gsy_arm64                    : "com.shuyu:gsyVideoPlayer-arm64:${gsyVersion}",
-            
+
             smart_layout                 : "com.scwang.smartrefresh:SmartRefreshLayout:${smartVersion}",
             smart_header                 : "com.scwang.smartrefresh:SmartRefreshHeader:${smartVersion}",//没有使用特殊Header，可以不加这行
     ]
@@ -138,10 +138,12 @@ ext {
     ]
 
     testDependencies = [
-            junit               : "junit:junit:${jUnitVersion}",
-            androidJUnitRunner  : "android.support.test.runner.AndroidJUnitRunner",
-            multidexTest        : "org.robolectric:shadows-multidex:${robolectricVersion}",
-            runner              : "com.android.support.test:runner:${runnerVersion}"
+            junit             : "junit:junit:${jUnitVersion}",
+            androidJUnitRunner: "android.support.test.runner.AndroidJUnitRunner",
+            multidexTest      : "org.robolectric:shadows-multidex:${robolectricVersion}",
+            runner            : "com.android.support.test:runner:${runnerVersion}",
+            mockito           : "org.mockito:mockito-core:${mockitoVersion}",
+            bugly             : "com.tencent.bugly:crashreport:latest.release"
     ]
 
 }

@@ -1,7 +1,5 @@
 package com.example.zhiyicx.justdodagger2.base.dagger.app;
 
-import android.app.Application;
-
 import com.example.zhiyicx.justdodagger2.base.BaseApplication;
 import com.example.zhiyicx.justdodagger2.data.bean.DaoMaster;
 import com.example.zhiyicx.justdodagger2.data.bean.DaoSession;
@@ -23,7 +21,7 @@ public class GreenDaoModule {
 
     @Provides
     @Singleton
-    DaoSession provideDaoSession(Application application) {
+    DaoSession provideDaoSession(BaseApplication application) {
         return new DaoMaster(new DaoMaster.DevOpenHelper(application, BaseApplication.DBName)
                 .getWritableDb())
                 .newSession();

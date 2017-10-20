@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <Button
@@ -14,31 +15,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="show" />
+            android:text="show"/>
 
         <Button
             android:id="@+id/show_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="show" />
+            android:text="show"/>
 
         <com.example.zhiyicx.justdodagger2.widget.edittext.DeleteEditText
             android:id="@+id/del"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:maxLength="23" />
-
-        <EditText
-            android:id="@+id/edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:background="@null"
+            android:maxLength="23"
+            android:textColor="#000000"/>
 
         <Button
             android:id="@+id/kankan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="kankan" />
+            android:text="kankan"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.zhiyicx.justdodagger2.widget.linear.TagLinearLayout
+            android:id="@+id/vvvvv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.example.zhiyicx.justdodagger2.widget.linear.TagLinearLayout>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -23,10 +23,12 @@ android {
 }
 
 dependencies {
-    def sdkSoupportDependences = rootProject.ext.sdksoupportDependencies;
+    def support = rootProject.ext.sdksoupportDependencies;
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     // Test
-    compile sdkSoupportDependences.recyclerview
+    compile support.recyclerview
+    //support
+    compile support.appcompatV7
 
 }

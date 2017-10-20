@@ -20,7 +20,7 @@ public class SingleDaoModule {
 
     @Provides
     @Singleton
-    VideoEntryDao provideVideoEntryDao(DaoSession daoSession){
+    public VideoEntryDao provideVideoEntryDao(DaoSession daoSession){
         return daoSession.getVideoEntryDao();
     }
 }

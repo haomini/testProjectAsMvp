@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.zhiyicx.justdodagger2.base.InjectComponent;
 import com.example.zhiyicx.justdodagger2.base.ServiceModule;
+import com.example.zhiyicx.justdodagger2.data.bean.SingleDaoManager;
 import com.example.zhiyicx.justdodagger2.data.remote.ServiceManager;
 
 import javax.inject.Singleton;
@@ -18,10 +19,13 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {HttpClientModule.class, ServiceModule.class,
+@Component(modules = {AppModule.class, HttpClientModule.class, ServiceModule.class,
         GreenDaoModule.class, SingleDaoModule.class})
 public interface AppComponent extends InjectComponent<Application>{
 
     //服务管理器,retrofitApi
     ServiceManager serviceManager();
+
+    //数据库管理器
+    SingleDaoManager singleDaoManager();
 }

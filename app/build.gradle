@@ -53,9 +53,15 @@ dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    //support
-    compile support.appcompatV7
+
     compile support.cardview
+
+    compile testDependences.bugly
+
+    // Required -- JUnit 4 framework
+    testCompile 'junit:junit:4.12'
+    // Optional -- Mockito framework
+    testCompile 'org.mockito:mockito-core:1.10.19'
 
     //分包
     compile dataDependencies.multidex
@@ -113,4 +119,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(path: ':baseadapter-recyclerview')
     compile project(path: ':liboverscroll')
+
+    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+
 }

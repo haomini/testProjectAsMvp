@@ -4,6 +4,10 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import java.lang.reflect.Field;
@@ -122,6 +126,30 @@ public class EditTextAddWrapper<T extends EditText> implements TextWatcher {
 
     private void initListener() {
         editText.addTextChangedListener(this);
+        editText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                Log.e("EditTextAddWrapper", "onCreateActionMode(): ");
+                return false;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                Log.e("EditTextAddWrapper", "onPrepareActionMode(): ");
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                Log.e("EditTextAddWrapper", "onActionItemClicked(): ");
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                Log.e("EditTextAddWrapper", "onDestroyActionMode(): ");
+            }
+        });
     }
 
     @Override
